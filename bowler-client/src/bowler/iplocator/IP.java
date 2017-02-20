@@ -22,11 +22,13 @@ public class IP extends JFrame {
         // setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         try {
-            NetworkInterface ni = NetworkInterface.getNetworkInterfaces().nextElement();
-            Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
-            for(InetAddress inetAddress : Collections.list(inetAddresses)) {
-                if(inetAddress instanceof Inet4Address) {
-                    add(new JLabel(inetAddress.getHostAddress(), SwingConstants.CENTER));
+            Enumeration<NetworkInterface> nics = NetworkInterface.getNetworkInterfaces();
+            for(NetworkInterface ni : Collections.list(nics)) {
+                Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
+                for(InetAddress inetAddress : Collections.list(inetAddresses)) {
+                    if(inetAddress instanceof Inet4Address && !inetAddress.getHostAddress().equals("127.0.0.1")) {
+                        add(new JLabel(inetAddress.getHostAddress(), SwingConstants.CENTER));
+                    }
                 }
             }
         }
