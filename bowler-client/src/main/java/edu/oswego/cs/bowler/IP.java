@@ -1,4 +1,4 @@
-package bowler.iplocator;
+package edu.oswego.cs.bowler;
 
 import javax.swing.*;
 import java.net.Inet4Address;

@@ -1,7 +1,5 @@
-package bowler.client;
+package edu.oswego.cs.bowler;
 
-import bowler.gui.GUI;
-import bowler.iplocator.IP;
 import com.google.gson.Gson;
 
 import javax.swing.*;

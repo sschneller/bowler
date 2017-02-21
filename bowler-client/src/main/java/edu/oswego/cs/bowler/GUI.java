@@ -1,4 +1,4 @@
-package bowler.gui;
+package edu.oswego.cs.bowler;
 
 import net.miginfocom.swing.MigLayout;
 
