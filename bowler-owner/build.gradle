@@ -1,0 +1,25 @@
+group 'edu.oswego.cs.bowler_owner'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+run {
+    mainClassName = 'edu.oswego.cs.bowler_owner.GUI'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'com.miglayout', name: 'miglayout', version: '3.7.4'
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.4.2'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.3'
+    distributionUrl = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
