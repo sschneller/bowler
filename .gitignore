@@ -95,3 +95,6 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+# CREDENTIAL FILE UPDATES TO BE IGNORED
+*/Credentials.java
