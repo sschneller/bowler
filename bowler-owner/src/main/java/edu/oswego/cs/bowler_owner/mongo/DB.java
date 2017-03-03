@@ -1,6 +1,7 @@
 package edu.oswego.cs.bowler_owner.mongo;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import edu.oswego.cs.bowler_owner.models.Connection;
@@ -18,7 +19,7 @@ public class DB {
     static private MongoCollection<Document> sequences, connections;
 
     static public void init(String host, int port) {
-        mongoClient = new MongoClient(host, port);
+        mongoClient = new MongoClient(new MongoClientURI("mongodb://" + Credentials.username + ":" + Credentials.password + "@" + host + ":" + "13486/bowler"));
         connect();
     }
 
