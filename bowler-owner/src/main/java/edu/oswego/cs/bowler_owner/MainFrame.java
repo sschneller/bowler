@@ -1,11 +1,8 @@
 package edu.oswego.cs.bowler_owner;
 
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import edu.oswego.cs.bowler_owner.components.JSwitchBox;
+import edu.oswego.cs.bowler_owner.models.Connection;
+import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
-import org.bson.Document;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -15,56 +12,52 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static com.mongodb.client.model.Filters.eq;
-
-public class GUI extends JFrame implements ActionListener {
+public class MainFrame extends JFrame implements ActionListener {
 
     private final String USER_AGENT = "Mozilla/5.0";
     private JTextField jTextField;
     private JList<String> iplist;
     private JButton openMenu;
     private DefaultListModel model = new DefaultListModel();
-    private MongoClient mongoClient = new MongoClient("localhost", 27017);
-    private MongoDatabase originDB;
-    private MongoCollection<Document> sequences, connections;
+
+    private static final String HOST = "ds013486.mlab.com";
+    private static final int PORT = 13486;
 
     public static void main(String[] args) {
-        final GUI gui = new GUI();
-        SwingUtilities.invokeLater(() -> gui.setVisible(true));
+        final MainFrame mainFrame = new MainFrame();
+        SwingUtilities.invokeLater(() -> mainFrame.setVisible(true));
     }
 
-    private GUI() {
+    private MainFrame() {
+        DB.init(HOST, PORT);
+
         setTitle("Owner Station");
         setLayout(new MigLayout("", "[grow,fill][]", "[][grow,fill][]"));
         setSize(400, 200);
+        setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("bowling-ball.png")).getImage());
+
         add(jTextField = new JTextField(""), "growx");
-        JButton send = new JButton("SEND");
+        JButton send;
+        add(send = new JButton("SEND"), "wrap");
         send.addActionListener(this);
-        add(send, "wrap");
-        connect();
-        retrieveConnections();
+
+        addConnectionsToListModel();
         iplist = new JList<>(model);
         add(iplist, "span, wrap");
         openMenu = new JButton("OPEN CONTROLS");
         openMenu.addActionListener(this);
         add(openMenu, "span");
     }
-
-    private void connect() {
-        originDB = mongoClient.getDatabase("league");
-        sequences = originDB.getCollection("sequences");
-        connections = originDB.getCollection("connections");
-    }
-
-    private void retrieveConnections() {
+    
+    /**
+     * Retrieves all lanes that have been stored in the DB and adds them to the ListModel
+     * Will change to be decoupled from the Swing itself
+     */
+    private void addConnectionsToListModel() {
         model.removeAllElements();
-        for(Document d : connections.find()) {
-            model.addElement("Lane " + d.getInteger("laneid").toString()/* + " - " + d.getString("ip")*/);
+        for(Connection c : DB.getStoredConnections()) {
+            model.addElement(c);
         }
-    }
-
-    private String getIp(int laneid) {
-        return connections.find(eq("laneid", laneid)).first().getString("ip");
     }
 
     @Override
@@ -80,10 +73,9 @@ public class GUI extends JFrame implements ActionListener {
             if (!inArray) {
                 try {
                     sendGet(jTextField.getText());
-                    Document doc = new Document("ip", jTextField.getText()).append("laneid", getSequence("laneid"));
-                    connections.insertOne(doc);
-                    incrementSequence("laneid");
-                    retrieveConnections();
+                    DB.insertConnection(new Connection(DB.getCurrValBySeq("laneid"), jTextField.getText()));
+                    DB.incrementSequence("laneid");
+                    addConnectionsToListModel();
                     iplist.repaint();
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -91,43 +83,12 @@ public class GUI extends JFrame implements ActionListener {
             }
         }
         else {
-            JFrame freme = new JFrame();
-            freme.setVisible(true);
-            freme.setTitle(getIp(Integer.parseInt(iplist.getSelectedValue().substring(5))));
-            freme.setLayout(new MigLayout("", "[grow,fill][grow,fill]", "[grow,fill][][]"));
-            freme.add(new JLabel("DATA"));
-            freme.add(new JSwitchBox("Free", "League"), "growx, wrap");
-            JTextField paramField = new JTextField();
-            freme.add(paramField, "span, growx");
-            JButton getButton = new JButton("GET EXAMPLE");
-            getButton.addActionListener(e12 -> {
-                try {
-                    sendGet(freme.getTitle(), paramField.getText());
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-            });
-            freme.add(getButton);
-            freme.add(new JButton("POST EXAMPLE"), "wrap");
-
-            freme.pack();
+            LaneControlFrame laneControlFrame = new LaneControlFrame(this, "DATA", ((Connection)model.getElementAt(iplist.getSelectedIndex())).getLaneid(), ((Connection)model.getElementAt(iplist.getSelectedIndex())).getIp());
+            laneControlFrame.setVisible(true);
         }
     }
 
-    private int getSequence(String sequence) {
-        for(Document d : sequences.find()) {
-            if(d.getString("sequence").equals(sequence)) {
-                return d.getInteger("value");
-            }
-        }
-        return -1;
-    }
-
-    private void incrementSequence(String sequence) {
-        sequences.updateOne(eq("sequence", sequence), new Document("$set", new Document("value", getSequence(sequence) + 1)));
-    }
-
-    private void sendGet(String s) throws Exception {
+    protected void sendGet(String s) throws Exception {
         String url = "http://" + s + ":4567/";
 
         URL obj = new URL(url);
@@ -157,7 +118,7 @@ public class GUI extends JFrame implements ActionListener {
         System.out.println(response.toString());
     }
 
-    private void sendGet(String s, String p) throws Exception {
+    protected void sendGet(String s, String p) throws Exception {
         String url = "http://" + s + ":4567" + p;
 
         URL obj = new URL(url);
