@@ -18,8 +18,8 @@ public class DB {
     static private MongoDatabase originDB;
     static private MongoCollection<Document> sequences, connections;
 
-    static public void init(String host, int port) {
-        mongoClient = new MongoClient(new MongoClientURI("mongodb://" + Credentials.username + ":" + Credentials.password + "@" + host + ":" + "13486/bowler"));
+    static public void init() {
+        mongoClient = new MongoClient(new MongoClientURI("mongodb://" + Credentials.USERNAME + ":" + Credentials.PASSWORD + "@" + Credentials.HOST + ":" + Credentials.PORT + "/bowler"));
         connect();
     }
 

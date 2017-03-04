@@ -20,16 +20,13 @@ public class MainFrame extends JFrame implements ActionListener {
     private JButton openMenu;
     private DefaultListModel model = new DefaultListModel();
 
-    private static final String HOST = "ds013486.mlab.com";
-    private static final int PORT = 13486;
-
     public static void main(String[] args) {
         final MainFrame mainFrame = new MainFrame();
         SwingUtilities.invokeLater(() -> mainFrame.setVisible(true));
     }
 
     private MainFrame() {
-        DB.init(HOST, PORT);
+        DB.init();
 
         setTitle("Owner Station");
         setLayout(new MigLayout("", "[grow,fill][]", "[][grow,fill][]"));

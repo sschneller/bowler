@@ -1,8 +1,5 @@
 package edu.oswego.cs.bowler_owner.models;
 
-/**
- * Created by Sam Schneller on 2/23/2017.
- */
 public class Connection {
     private int laneid;
     private String ip;
