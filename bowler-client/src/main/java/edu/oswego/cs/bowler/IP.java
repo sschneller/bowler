@@ -10,11 +10,6 @@ import java.util.Enumeration;
 
 public class IP extends JFrame {
 
-    public static void main(String[] args) {
-        final IP ip = new IP();
-        SwingUtilities.invokeLater(() -> ip.setVisible(true));
-    }
-
     public IP() {
         setResizable(false);
         setSize(200, 100);
@@ -35,5 +30,10 @@ public class IP extends JFrame {
         catch(SocketException se) {
             System.out.println("Uhhhhhhhhhhhhhhh");
         }
+    }
+
+    public static void main(String[] args) {
+        final IP ip = new IP();
+        SwingUtilities.invokeLater(() -> ip.setVisible(true));
     }
 }

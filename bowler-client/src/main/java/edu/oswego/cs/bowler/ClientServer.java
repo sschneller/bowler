@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static spark.Spark.*;
+import static spark.Spark.get;
 
 public class ClientServer {
 
