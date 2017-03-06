@@ -18,6 +18,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private JTextField jTextField;
     private JList<String> iplist;
     private JButton openMenu;
+    private JButton send;
     private DefaultListModel model = new DefaultListModel();
 
     public static void main(String[] args) {
@@ -25,6 +26,13 @@ public class MainFrame extends JFrame implements ActionListener {
         SwingUtilities.invokeLater(() -> mainFrame.setVisible(true));
     }
 
+    /**
+     * Empty constructor for the Frame.  Loads the DB, changes the necessary properties to the frame, and adds all
+     * components to the frame.  It then pulls all the respective connection IPs stored in the DB, and populates the
+     * JList with it.
+     *
+     * @see JList
+     */
     private MainFrame() {
         DB.init();
 
@@ -34,7 +42,6 @@ public class MainFrame extends JFrame implements ActionListener {
         setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("bowling-ball.png")).getImage());
 
         add(jTextField = new JTextField(""), "growx");
-        JButton send;
         add(send = new JButton("SEND"), "wrap");
         send.addActionListener(this);
 
@@ -48,7 +55,6 @@ public class MainFrame extends JFrame implements ActionListener {
     
     /**
      * Retrieves all lanes that have been stored in the DB and adds them to the ListModel
-     * Will change to be decoupled from the Swing itself
      */
     private void addConnectionsToListModel() {
         model.removeAllElements();
@@ -85,6 +91,12 @@ public class MainFrame extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Takes the url of the pi, and attempts to send a get request and receive a response.  This is to determine if the
+     * pi is actually reachable as an endpoint.
+     * @param s String of the url portion of the address
+     * @throws Exception
+     */
     protected void sendGet(String s) throws Exception {
         String url = "http://" + s + ":4567/";
 
@@ -94,7 +106,7 @@ public class MainFrame extends JFrame implements ActionListener {
         // optional default is GET
         con.setRequestMethod("GET");
 
-        //add request header
+        // add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         int responseCode = con.getResponseCode();
@@ -106,15 +118,21 @@ public class MainFrame extends JFrame implements ActionListener {
         String inputLine;
         StringBuffer response = new StringBuffer();
 
-        while ((inputLine = in.readLine()) != null) {
+        while((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
         in.close();
 
-        //print result
+        // print result
         System.out.println(response.toString());
     }
 
+    /**
+     * Sends gets to the provided url, along with a concatenated string of params and their values.
+     * @param s String representation of the url
+     * @param p String representation of the parameters and their values
+     * @throws Exception
+     */
     protected void sendGet(String s, String p) throws Exception {
         String url = "http://" + s + ":4567" + p;
 
@@ -124,7 +142,7 @@ public class MainFrame extends JFrame implements ActionListener {
         // optional default is GET
         con.setRequestMethod("GET");
 
-        //add request header
+        // add request header
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         int responseCode = con.getResponseCode();
@@ -136,12 +154,12 @@ public class MainFrame extends JFrame implements ActionListener {
         String inputLine;
         StringBuffer response = new StringBuffer();
 
-        while ((inputLine = in.readLine()) != null) {
+        while((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
         in.close();
 
-        //print result
+        // print result
         System.out.println(response.toString());
     }
 }
