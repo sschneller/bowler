@@ -38,7 +38,8 @@ public class LaneControlFrame extends JFrame {
         getButton.addActionListener(e12 -> {
             try {
                 parentFrame.sendGet(ipLabel.getText(), paramField.getText());
-            } catch (Exception e1) {
+            }
+            catch(Exception e1) {
                 e1.printStackTrace();
             }
         });

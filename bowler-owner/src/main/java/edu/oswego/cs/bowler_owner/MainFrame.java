@@ -18,13 +18,9 @@ public class MainFrame extends JFrame implements ActionListener {
     private JTextField jTextField;
     private JList<String> iplist;
     private JButton openMenu;
+    private JButton createAccount;
     private JButton send;
     private DefaultListModel model = new DefaultListModel();
-
-    public static void main(String[] args) {
-        final MainFrame mainFrame = new MainFrame();
-        SwingUtilities.invokeLater(() -> mainFrame.setVisible(true));
-    }
 
     /**
      * Empty constructor for the Frame.  Loads the DB, changes the necessary properties to the frame, and adds all
@@ -33,9 +29,7 @@ public class MainFrame extends JFrame implements ActionListener {
      *
      * @see JList
      */
-    private MainFrame() {
-        DB.init();
-
+    MainFrame() {
         setTitle("Owner Station");
         setLayout(new MigLayout("", "[grow,fill][]", "[][grow,fill][]"));
         setSize(400, 200);
@@ -48,11 +42,22 @@ public class MainFrame extends JFrame implements ActionListener {
         addConnectionsToListModel();
         iplist = new JList<>(model);
         add(iplist, "span, wrap");
+        JPanel olding = new JPanel(new MigLayout("", "[grow,fill][grow,fill]", "[grow,fill]"));
         openMenu = new JButton("OPEN CONTROLS");
         openMenu.addActionListener(this);
-        add(openMenu, "span");
+        olding.add(openMenu);
+        JFrame root = this;
+        createAccount = new JButton("CREATE ACCOUNT");
+        createAccount.addActionListener(e12 -> new CreateAccountDialog(root).setVisible(true));
+        olding.add(createAccount);
+        add(olding, "span");
     }
-    
+
+    public static void main(String[] args) {
+        final MainFrame mainFrame = new MainFrame();
+        SwingUtilities.invokeLater(() -> mainFrame.setVisible(true));
+    }
+
     /**
      * Retrieves all lanes that have been stored in the DB and adds them to the ListModel
      */
@@ -65,28 +70,29 @@ public class MainFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(((JButton)e.getSource()).getText().equals("SEND")) {
+        if(((JButton) e.getSource()).getText().equals("SEND")) {
             System.out.println("Testing 1 - Send Http GET request");
             boolean inArray = false;
-            for (int i = 0; i < model.getSize(); i++) {
-                if (((String) model.getElementAt(i)).contains(jTextField.getText())) {
+            for(int i = 0; i < model.getSize(); i++) {
+                if(((String) model.getElementAt(i)).contains(jTextField.getText())) {
                     inArray = true;
                 }
             }
-            if (!inArray) {
+            if(!inArray) {
                 try {
                     sendGet(jTextField.getText());
                     DB.insertConnection(new Connection(DB.getCurrValBySeq("laneid"), jTextField.getText()));
                     DB.incrementSequence("laneid");
                     addConnectionsToListModel();
                     iplist.repaint();
-                } catch (Exception e1) {
+                }
+                catch(Exception e1) {
                     e1.printStackTrace();
                 }
             }
         }
         else {
-            LaneControlFrame laneControlFrame = new LaneControlFrame(this, "DATA", ((Connection)model.getElementAt(iplist.getSelectedIndex())).getLaneid(), ((Connection)model.getElementAt(iplist.getSelectedIndex())).getIp());
+            LaneControlFrame laneControlFrame = new LaneControlFrame(this, "DATA", ((Connection) model.getElementAt(iplist.getSelectedIndex())).getLaneid(), ((Connection) model.getElementAt(iplist.getSelectedIndex())).getIp());
             laneControlFrame.setVisible(true);
         }
     }
@@ -94,6 +100,7 @@ public class MainFrame extends JFrame implements ActionListener {
     /**
      * Takes the url of the pi, and attempts to send a get request and receive a response.  This is to determine if the
      * pi is actually reachable as an endpoint.
+     *
      * @param s String of the url portion of the address
      * @throws Exception
      */
@@ -129,6 +136,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
     /**
      * Sends gets to the provided url, along with a concatenated string of params and their values.
+     *
      * @param s String representation of the url
      * @param p String representation of the parameters and their values
      * @throws Exception

@@ -1,17 +1,21 @@
 package edu.oswego.cs.bowler_owner;
 
+import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 
-public class LoginFrame extends JDialog {
+public class LoginFrame extends JFrame {
 
+    private static LoginFrame gui;
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JButton submitButton;
     private JButton cancelButton;
 
     public LoginFrame() {
+        DB.init();
+
         setTitle("Login");
         setSize(260, 141);
         setMinimumSize(this.getSize());
@@ -20,18 +24,30 @@ public class LoginFrame extends JDialog {
         add(usernameField = new JTextField(), "growx, wrap");
         add(new JLabel("Password:"));
         add(passwordField = new JPasswordField(), "growx, wrap");
-        JPanel dialogButtons = new JPanel(new MigLayout("", "[grow,fill][][][grow,fill]","[grow,fill]"));
+        JPanel dialogButtons = new JPanel(new MigLayout("", "[grow,fill][][][grow,fill]", "[grow,fill]"));
         dialogButtons.add(submitButton = new JButton("Login"), "cell 1 0");
         dialogButtons.add(cancelButton = new JButton("Cancel"), "cell 2 0");
         submitButton.addActionListener(e -> {
-
+            if(DB.verifyUsername(usernameField.getText())) {
+                if(DB.verifyPassword(String.valueOf(passwordField.getPassword()))) {
+                    gui.setVisible(false);
+                    final MainFrame mainFrame = new MainFrame();
+                    SwingUtilities.invokeLater(() -> mainFrame.setVisible(true));
+                }
+                else {
+                    JOptionPane.showMessageDialog(submitButton, "This username/password combination does not match any account.", "Username/Password Mismatch", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(submitButton, "This username/password combination does not match any account.", "Username/Password Mismatch", JOptionPane.ERROR_MESSAGE);
+            }
         });
         cancelButton.addActionListener(e -> dispose());
         add(dialogButtons, "span, growx");
     }
 
     public static void main(String[] args) {
-        final LoginFrame gui = new LoginFrame();
+        gui = new LoginFrame();
         SwingUtilities.invokeLater(() -> gui.setVisible(true));
     }
 }
