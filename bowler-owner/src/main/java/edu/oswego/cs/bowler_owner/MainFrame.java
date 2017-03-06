@@ -70,11 +70,11 @@ public class MainFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(((JButton) e.getSource()).getText().equals("SEND")) {
+        if(((JButton)e.getSource()).getText().equals("SEND")) {
             System.out.println("Testing 1 - Send Http GET request");
             boolean inArray = false;
             for(int i = 0; i < model.getSize(); i++) {
-                if(((String) model.getElementAt(i)).contains(jTextField.getText())) {
+                if(((String)model.getElementAt(i)).contains(jTextField.getText())) {
                     inArray = true;
                 }
             }
@@ -92,7 +92,7 @@ public class MainFrame extends JFrame implements ActionListener {
             }
         }
         else {
-            LaneControlFrame laneControlFrame = new LaneControlFrame(this, "DATA", ((Connection) model.getElementAt(iplist.getSelectedIndex())).getLaneid(), ((Connection) model.getElementAt(iplist.getSelectedIndex())).getIp());
+            LaneControlFrame laneControlFrame = new LaneControlFrame(this, "DATA", ((Connection)model.getElementAt(iplist.getSelectedIndex())).getLaneid(), ((Connection)model.getElementAt(iplist.getSelectedIndex())).getIp());
             laneControlFrame.setVisible(true);
         }
     }
@@ -108,7 +108,7 @@ public class MainFrame extends JFrame implements ActionListener {
         String url = "http://" + s + ":4567/";
 
         URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        HttpURLConnection con = (HttpURLConnection)obj.openConnection();
 
         // optional default is GET
         con.setRequestMethod("GET");
@@ -145,7 +145,7 @@ public class MainFrame extends JFrame implements ActionListener {
         String url = "http://" + s + ":4567" + p;
 
         URL obj = new URL(url);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        HttpURLConnection con = (HttpURLConnection)obj.openConnection();
 
         // optional default is GET
         con.setRequestMethod("GET");
