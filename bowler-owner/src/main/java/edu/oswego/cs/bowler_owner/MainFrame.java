@@ -1,6 +1,8 @@
 package edu.oswego.cs.bowler_owner;
 
+import com.google.gson.Gson;
 import edu.oswego.cs.bowler_owner.models.Connection;
+import edu.oswego.cs.bowler_owner.models.ScoreTable;
 import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
@@ -74,7 +76,7 @@ public class MainFrame extends JFrame implements ActionListener {
             System.out.println("Testing 1 - Send Http GET request");
             boolean inArray = false;
             for(int i = 0; i < model.getSize(); i++) {
-                if(((String)model.getElementAt(i)).contains(jTextField.getText())) {
+                if(((String)model.getElementAt(i).toString()).contains(jTextField.getText())) {
                     inArray = true;
                 }
             }
@@ -169,5 +171,11 @@ public class MainFrame extends JFrame implements ActionListener {
 
         // print result
         System.out.println(response.toString());
+        if(p.equals("/scoretable")) {
+            Gson gson = new Gson();
+            ScoreTable table = gson.fromJson(response.toString(), ScoreTable.class);
+            System.out.println(table.isLeagueMode());
+            System.out.println(table.getScoreFrames().get(0).getFrameName());
+        }
     }
 }
