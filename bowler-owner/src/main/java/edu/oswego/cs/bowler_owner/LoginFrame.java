@@ -29,7 +29,7 @@ public class LoginFrame extends JFrame {
         dialogButtons.add(cancelButton = new JButton("Cancel"), "cell 2 0");
         submitButton.addActionListener(e -> {
             if(DB.verifyUsername(usernameField.getText())) {
-                if(DB.verifyPassword(String.valueOf(passwordField.getPassword()))) {
+                if(DB.verifyPassword(String.valueOf(usernameField.getText()), String.valueOf(passwordField.getPassword()))) {
                     gui.setVisible(false);
                     final MainFrame mainFrame = new MainFrame();
                     SwingUtilities.invokeLater(() -> mainFrame.setVisible(true));
@@ -39,7 +39,7 @@ public class LoginFrame extends JFrame {
                 }
             }
             else {
-                JOptionPane.showMessageDialog(submitButton, "This username/password combination does not match any account.", "Username/Password Mismatch", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(submitButton, "This username does not exist.", "Username Not Found", JOptionPane.ERROR_MESSAGE);
             }
         });
         cancelButton.addActionListener(e -> dispose());

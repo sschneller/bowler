@@ -22,6 +22,9 @@ public class DB {
 
     /* --- Initializer Methods --- */
 
+    /**
+     * Creates the client from the credentials, and then initializes the collections
+     */
     public static void init() {
         mongoClient = new MongoClient(new MongoClientURI("mongodb://" + Credentials.USERNAME + ":" + Credentials.PASSWORD + "@" + Credentials.HOST + ":" + Credentials.PORT + "/bowler"));
         connect();
@@ -39,15 +42,23 @@ public class DB {
 
     /* --- Connection Methods --- */
 
+    /**
+     * Returns the connections stored in the 'connections' collection as a list of Connection model objects
+     * @return List of Connection models representing the stored data
+     */
     public static List<Connection> getStoredConnections() {
         List<Connection> connectionList = new ArrayList<>();
         for(Document d : connections.find()) {
             connectionList.add(new Connection(d.getInteger("laneid"), d.getString("ip")));
-            // model.addElement("Lane " + d.getInteger("laneid").toString()/* + " - " + d.getString("ip")*/);
         }
         return connectionList;
     }
 
+    /**
+     * Finds the associated IP from the laneid
+     * @param laneid The unique id associated with the lane
+     * @return The ip associated with the provided laneid
+     */
     public static String getIp(int laneid) {
         for(Connection c : getStoredConnections()) {
             if(c.getLaneid() == laneid) {
@@ -57,6 +68,10 @@ public class DB {
         return null;
     }
 
+    /**
+     * Adds a connection to the 'connections' collection
+     * @param c The connection you want to store
+     */
     public static void insertConnection(Connection c) {
         Document doc = new Document("laneid", c.getLaneid()).append("ip", c.getIp());
         connections.insertOne(doc);
@@ -64,6 +79,11 @@ public class DB {
 
     /* --- Sequence Methods --- */
 
+    /**
+     * Get the current value of the sequence provided
+     * @param sequence The String representation of the sequence name
+     * @return The current value of the sequence
+     */
     public static int getCurrValBySeq(String sequence) {
         for(Document d : sequences.find()) {
             if(d.getString("sequence").equals(sequence)) {
@@ -73,12 +93,21 @@ public class DB {
         return -1;
     }
 
+    /**
+     * Increments the provided sequence by 1
+     * @param sequence The String name of the sequence
+     */
     public static void incrementSequence(String sequence) {
         sequences.updateOne(eq("sequence", sequence), new Document("$set", new Document("value", getCurrValBySeq(sequence) + 1)));
     }
 
     /* --- User Methods --- */
 
+    /**
+     * Insert a new user into the 'user' collection
+     * @param username The username to store
+     * @param password The password to store
+     */
     public static void insertUser(String username, String password) {
         try {
             Document doc = new Document("userid", getCurrValBySeq("userid")).append("username", username).append("hashed_password", Accounts.generateStrongPasswordHash(password));
@@ -89,6 +118,11 @@ public class DB {
         }
     }
 
+    /**
+     * Checks to see if the given username matches any in the 'user' collection
+     * @param username The username to find
+     * @return True if the username is in the collection, false if it isn't
+     */
     public static boolean verifyUsername(String username) {
         for(Document d : users.find()) {
             if(d.getString("username").equals(username)) {
@@ -98,15 +132,24 @@ public class DB {
         return false;
     }
 
-    public static boolean verifyPassword(String password) {
+    /**
+     * Checks to see if the given password matches the associated given username
+     * @param username The username to check the password against
+     * @param password The password to check
+     * @return True if the password matches the one associated with the username, false if it doesn't
+     */
+    public static boolean verifyPassword(String username, String password) {
         for(Document d : users.find()) {
-            try {
-                if(Accounts.validatePassword(password, d.getString("hashed_password"))) {
-                    return true;
+            if(d.getString("username").equals(username)) {
+                try {
+                    if(Accounts.validatePassword(password, d.getString("hashed_password"))) {
+                        return true;
+                    }
                 }
-            }
-            catch(NoSuchAlgorithmException | InvalidKeySpecException e) {
-                e.printStackTrace();
+                catch(NoSuchAlgorithmException | InvalidKeySpecException e) {
+                    e.printStackTrace();
+                }
+                return false;
             }
         }
         return false;

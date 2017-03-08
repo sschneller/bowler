@@ -29,6 +29,7 @@ public class CreateAccountDialog extends JDialog {
             if(!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
                 DB.insertUser(usernameField.getText(), passwordField.getText());
                 DB.incrementSequence("userid");
+                //TODO: Maybe add a confirmation dialog to check they want to make this account?
                 dispose();
             }
         });

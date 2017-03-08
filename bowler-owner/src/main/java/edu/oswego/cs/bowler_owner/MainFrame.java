@@ -28,7 +28,6 @@ public class MainFrame extends JFrame implements ActionListener {
      * Empty constructor for the Frame.  Loads the DB, changes the necessary properties to the frame, and adds all
      * components to the frame.  It then pulls all the respective connection IPs stored in the DB, and populates the
      * JList with it.
-     *
      * @see JList
      */
     MainFrame() {
@@ -102,7 +101,6 @@ public class MainFrame extends JFrame implements ActionListener {
     /**
      * Takes the url of the pi, and attempts to send a get request and receive a response.  This is to determine if the
      * pi is actually reachable as an endpoint.
-     *
      * @param s String of the url portion of the address
      * @throws Exception
      */
@@ -138,7 +136,6 @@ public class MainFrame extends JFrame implements ActionListener {
 
     /**
      * Sends gets to the provided url, along with a concatenated string of params and their values.
-     *
      * @param s String representation of the url
      * @param p String representation of the parameters and their values
      * @throws Exception

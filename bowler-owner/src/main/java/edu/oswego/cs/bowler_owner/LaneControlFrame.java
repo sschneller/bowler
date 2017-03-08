@@ -1,5 +1,6 @@
 package edu.oswego.cs.bowler_owner;
 
+import edu.oswego.cs.bowler_owner.components.JSwitchBox;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class LaneControlFrame extends JFrame {
         setTitle(title);
         setLayout(new MigLayout("", "[grow,fill][grow,fill]", "[grow,fill][][]"));
 
-        // add(new JSwitchBox("Free", "League"), "growx, wrap");
+        add(new JSwitchBox("Free", "League"), "growx, wrap");
         laneLabel = new JLabel("Lane " + lane);
         add(laneLabel);
         ipLabel = new JLabel(ip);

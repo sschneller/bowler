@@ -9,6 +9,13 @@ import java.security.spec.InvalidKeySpecException;
 
 public class Accounts {
 
+    /**
+     * Takes the given password as a String, generates the salt, and then hashes the password using SHA-1 Encryption
+     * @param password The un-salted, un-unhashed, plaintext password
+     * @return The salted hashed password
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
     static String generateStrongPasswordHash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
         int iterations = 1000;
         char[] chars = password.toCharArray();
@@ -20,6 +27,11 @@ public class Accounts {
         return iterations + ":" + toHex(salt) + ":" + toHex(hash);
     }
 
+    /**
+     * Generates the salt for hashing using a random number gen
+     * @return The salt for hashing
+     * @throws NoSuchAlgorithmException
+     */
     private static byte[] getSalt() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[16];
@@ -27,6 +39,12 @@ public class Accounts {
         return salt;
     }
 
+    /**
+     * Converts the provided byte array to Hexidecimal format
+     * @param array The byte array to convert to Hex
+     * @return The hex output
+     * @throws NoSuchAlgorithmException
+     */
     private static String toHex(byte[] array) throws NoSuchAlgorithmException {
         BigInteger bi = new BigInteger(1, array);
         String hex = bi.toString(16);
@@ -39,6 +57,14 @@ public class Accounts {
         }
     }
 
+    /**
+     * Takes the un-hashed password, and the hashed one, and will compare them to determine if they match
+     * @param originalPassword The un-hashed password
+     * @param storedPassword The password with the iterations, salt, and hashed text
+     * @return True if the passwords match, false if they don't
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidKeySpecException
+     */
     static boolean validatePassword(String originalPassword, String storedPassword) throws NoSuchAlgorithmException, InvalidKeySpecException {
         String[] parts = storedPassword.split(":");
         int iterations = Integer.parseInt(parts[0]);
@@ -56,6 +82,12 @@ public class Accounts {
         return diff == 0;
     }
 
+    /**
+     * Converts hexidecimal back into a byte array
+     * @param hex The hexidecimal string to convert to byte array
+     * @return The output byte array
+     * @throws NoSuchAlgorithmException
+     */
     private static byte[] fromHex(String hex) throws NoSuchAlgorithmException {
         byte[] bytes = new byte[hex.length() / 2];
         for(int i = 0; i < bytes.length; i++) {
