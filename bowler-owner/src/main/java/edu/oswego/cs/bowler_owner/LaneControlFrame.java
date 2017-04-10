@@ -6,7 +6,7 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 
 public class LaneControlFrame extends JFrame {
-    private MainFrame parentFrame;
+    private ControlFrame parentFrame;
     private String title;
     private int lane;
     private String ip;
@@ -16,7 +16,7 @@ public class LaneControlFrame extends JFrame {
     private JButton getButton;
     private JButton postButton;
 
-    public LaneControlFrame(MainFrame pF, String t, int l, String i) {
+    public LaneControlFrame(ControlFrame pF, String t, int l, String i) {
         parentFrame = pF;
         title = t;
         lane = l;

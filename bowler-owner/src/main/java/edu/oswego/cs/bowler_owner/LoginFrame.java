@@ -4,7 +4,6 @@ import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.util.concurrent.ExecutionException;
 
 public class LoginFrame extends JFrame {
 
@@ -19,6 +18,7 @@ public class LoginFrame extends JFrame {
 
         setTitle("Login");
         setSize(260, 141);
+        setLocationRelativeTo(null);
         setMinimumSize(this.getSize());
         setLayout(new MigLayout("", "[][grow,fill]", "[][][]"));
         add(new JLabel("Username:"));
@@ -45,6 +45,8 @@ public class LoginFrame extends JFrame {
         });
         cancelButton.addActionListener(e -> dispose());
         add(dialogButtons, "span, growx");
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
