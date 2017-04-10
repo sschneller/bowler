@@ -27,8 +27,8 @@ public class CreateAccountDialog extends JDialog {
         dialogButtons.add(cancelButton = new JButton("Cancel"), "cell 2 0");
         createButton.addActionListener(e -> {
             if(!usernameField.getText().isEmpty() && !passwordField.getText().isEmpty()) {
-                DB.insertUser(usernameField.getText(), passwordField.getText());
-                DB.incrementSequence("userid");
+                DB.insertAccount(usernameField.getText(), passwordField.getText());
+                DB.incrementSequence("accountid");
                 //TODO: Maybe add a confirmation dialog to check they want to make this account?
                 dispose();
             }
