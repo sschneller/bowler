@@ -46,6 +46,7 @@ public class LoginFrame extends JFrame {
         cancelButton.addActionListener(e -> dispose());
         add(dialogButtons, "span, growx");
 
+        getRootPane().setDefaultButton(submitButton);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
