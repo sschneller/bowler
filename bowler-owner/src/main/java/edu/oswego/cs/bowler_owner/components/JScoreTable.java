@@ -1,35 +1,38 @@
 package edu.oswego.cs.bowler_owner.components;
 
+import edu.oswego.cs.bowler_owner.models.FrameConnector;
+import edu.oswego.cs.bowler_owner.models.Player;
+import edu.oswego.cs.bowler_owner.models.Score;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class JScoreTable extends JPanel {
+    FrameConnector frameConnector;
 
     public JScoreTable() {
-
+        frameConnector = new FrameConnector();
+        Player p = new Player();
+        p.setPlayer_name("CHRIS");
+        addPlayer(p);
+        Player p2 = new Player();
+        p2.setPlayer_name("SAM");
+        addPlayer(p2);
     }
 
-    public void addPlayer(String playerName) {
-
+    public void addPlayer(Player player) {
+        frameConnector.players.add(player);
     }
 
-    public void removePlayer(String playerName) {
-
+    public void removePlayer(Player player) {
+        frameConnector.players.remove(player);
     }
 
-    public void updatePlayer(String oldPlayerName, String newPlayerName) {
-
+    public void updatePlayer(Player oldPlayer, Player newPlayer) {
+        frameConnector.players.set(frameConnector.players.indexOf(oldPlayer), newPlayer);
     }
 
-    public void insertScore() {
-
-    }
-
-    public void removeScore() {
-
-    }
-
-    public void updateScore() {
+    public void insertScore(Player player, Score score) {
 
     }
 
@@ -45,7 +48,7 @@ public class JScoreTable extends JPanel {
         xDivider = width / 14;
 
         Double BLANKBOX_XLOC = xDivider;
-        Double BLANKBOX_CENTER = BLANKBOX_XLOC / 2.0;
+        Double BLANKBOX_XLOC_CENTER = BLANKBOX_XLOC / 2.0;
         Double FRAME1_XLOC = 3.0 * xDivider;
         Double FRAME1_XLOC_CENTER = FRAME1_XLOC / 2.0;
         Double FRAME2_XLOC = 5.0 * xDivider;
@@ -106,5 +109,13 @@ public class JScoreTable extends JPanel {
         g.drawString("HDCP Series", HDCPS_XLOC_CENTER.intValue() - (g.getFontMetrics().stringWidth("HDCP Series") / 2), 30 - (g.getFontMetrics().getHeight() / 2));
 
         g.drawLine(0, 30, width.intValue(), 30);
+
+        yDivider = xDivider;
+        int i = 1;
+        for(Player p : frameConnector.players) {
+            g.drawLine(0, 30 + (i * yDivider.intValue()), width.intValue(), 30 + (i * yDivider.intValue()));
+            g.drawString(p.getPlayer_name(), BLANKBOX_XLOC_CENTER.intValue() - (g.getFontMetrics().stringWidth(p.getPlayer_name()) / 2), (30 + (i * yDivider.intValue())) / 2);
+            i++;
+        }
     }
 }
