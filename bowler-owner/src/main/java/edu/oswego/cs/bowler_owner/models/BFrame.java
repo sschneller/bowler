@@ -1,7 +1,7 @@
 package edu.oswego.cs.bowler_owner.models;
 
 public interface BFrame {
-    BFrame insertScore(Player p, String score, int index);
+    BFrame insertScore(Player p, String score);
 }
 
 /*

@@ -16,7 +16,7 @@ public class FullFrame implements BFrame {
     }
 
     @Override
-    public BFrame insertScore(Player p, String score, int index) {
+    public BFrame insertScore(Player p, String score) {
         setValue(score);
         return this;
     }

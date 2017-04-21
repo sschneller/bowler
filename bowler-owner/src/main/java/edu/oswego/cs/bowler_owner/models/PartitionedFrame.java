@@ -36,7 +36,7 @@ public class PartitionedFrame implements BFrame {
     }
 
     @Override
-    public BFrame insertScore(Player p, String score, int index) {
+    public BFrame insertScore(Player p, String score) {
         if(getLeftFrame().equals("")) {
             if(score.equals("10")) setRightFrame("X");
             else setLeftFrame(score);

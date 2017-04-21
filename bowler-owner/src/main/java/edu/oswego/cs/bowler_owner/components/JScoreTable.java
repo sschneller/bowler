@@ -20,12 +20,12 @@ public class JScoreTable extends JPanel {
         scoreTable.insertPlayer(p2);
         scoreTable.insertScore(p, "3", 0);
         scoreTable.insertScore(p, "4", 0);
-        scoreTable.getScores(p).forEach(a -> {
-            if(a instanceof PartitionedFrame) {
-                System.out.println(((PartitionedFrame)a).getLeftFrame());
-                System.out.println(((PartitionedFrame)a).getRightFrame());
-            }
-        });
+//        scoreTable.getScores(p).forEach(a -> {
+//            if(a instanceof PartitionedFrame) {
+//                System.out.println(((PartitionedFrame)a).getLeftFrame());
+//                System.out.println(((PartitionedFrame)a).getRightFrame());
+//            }
+//        });
 //        scoreTable.insertScore(p, "10", 1);
 //        scoreTable.insertScore(p, "3", 2);
 //        scoreTable.insertScore(p, "7", 2);
@@ -107,30 +107,34 @@ public class JScoreTable extends JPanel {
 
         yDivider = xDivider;
         Double i = 1.0;
+
         for(Player p : scoreTable.getPlayers()) {
             g.drawLine(0, ((Double)(30.0 + (i * yDivider))).intValue(), width.intValue(), ((Double)(30.0 + (i * yDivider))).intValue());
             g.drawString(p.getPlayer_name(), BLANKBOX_XLOC_CENTER.intValue() - (g.getFontMetrics().stringWidth(p.getPlayer_name()) / 2), ((Double)(30.0 + ((i * yDivider) - (yDivider / 2.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
-            int asd = 1;
+            int j = 1;
             for(BFrame frame : scoreTable.getScores(p)) {
-                System.out.println(frame + " " + asd++);
                 if(frame instanceof PartitionedFrame) {
-                    System.out.println(((PartitionedFrame)frame).getLeftFrame());
-                    System.out.println(((Double)(FRAME1_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())));
-                    switch(i.intValue()) {
+                    switch(j) {
                         case 1:
+                            System.out.println(i);
                             g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME1_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME1_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
                             break;
                         case 2:
                             g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME2_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME2_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
                             break;
                         case 3:
                             g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME3_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME3_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
                             break;
                         case 4:
                             g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME4_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME4_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
                             break;
                         case 5:
                             g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME5_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME5_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
                             break;
                         case 6:
                             g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME6_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
@@ -148,6 +152,7 @@ public class JScoreTable extends JPanel {
                             g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME10_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)(30.0 + ((i * yDivider) - (yDivider / 3.0)) + (0.0 + g.getFontMetrics().getHeight()) / 2.0)).intValue());
                             break;
                     }
+                    j++;
                 }
             }
             i += 1.0;

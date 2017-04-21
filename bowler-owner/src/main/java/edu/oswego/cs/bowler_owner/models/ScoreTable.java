@@ -26,13 +26,12 @@ public class ScoreTable {
         List<BFrame> emptyFrames = new ArrayList<>();
         for(int i = 0; i < 10; i++) emptyFrames.add(new PartitionedFrame("", "", ""));
         for(int i = 0; i < 3; i++) emptyFrames.add(new FullFrame(""));
-        if(playerListMap.keySet().contains(p)) playerListMap.replace(p, emptyFrames);
-        else playerListMap.put(p, emptyFrames);
+        playerListMap.put(p, emptyFrames);
     }
 
     public void insertScore(Player p, String score, int index) {
         List<BFrame> updatedList = playerListMap.get(p);
-        updatedList.set(index, playerListMap.get(p).get(index).insertScore(p, score, index));
+        updatedList.set(index, playerListMap.get(p).get(index).insertScore(p, score));
         playerListMap.replace(p, updatedList);
     }
 }
