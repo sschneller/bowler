@@ -11,11 +11,13 @@ public class SideMainFramePanel extends JPanel implements ActionListener {
 
     private MainFrame mainFrame;
     private SideButtonInMainFrame safeMode, setDefaults, ownerFeatures, cashOut;
+    private String userName;
 
-    SideMainFramePanel(MainFrame mF){
+    SideMainFramePanel(MainFrame mF, String user){
         setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][grow,fill][grow,fill][grow,fill]"));
 
         mainFrame = mF;
+        userName = user;
 
         Color backgroundColor = Color.decode("#666666");
         setBackground(backgroundColor);
@@ -34,10 +36,12 @@ public class SideMainFramePanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton)e.getSource()).getText().equals("Safe Mode")){
-
+            final SafeFrame safeFrame = new SafeFrame(mainFrame, userName);
+            SwingUtilities.invokeLater(() -> safeFrame.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Set Defaults")){
-
+            final PriceDefaultsFrame priceDefaultsFrame = new PriceDefaultsFrame();
+            SwingUtilities.invokeLater(() -> priceDefaultsFrame.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Owner Features")){
 

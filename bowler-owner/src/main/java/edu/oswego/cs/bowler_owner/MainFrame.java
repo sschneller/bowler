@@ -14,10 +14,14 @@ public class MainFrame extends JFrame implements ActionListener {
     private JPanel cards;
     private NonLeagueLanePanel nonPanel;
     private LeagueLanePanel leaguePanel;
+    private String userName;
+    private boolean dialogShown = false;
 
-    MainFrame() {
+    MainFrame(String user) {
         setTitle("Owner Station");
         setLayout(new MigLayout("", "[grow,fill][]", "[][grow,fill]"));
+
+        userName = user;
 
         //FIX AT LATER DATE TO TAKE INTO ACCOUNT TOOLBAR
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -29,7 +33,7 @@ public class MainFrame extends JFrame implements ActionListener {
         getContentPane().setBackground(backgroundColor);
 
         add(topMainFrame = new TopMainFramePanel(this), "span, growx");
-        add(sideMainFrame = new SideMainFramePanel(this), "cell 1 1, growy");
+        add(sideMainFrame = new SideMainFramePanel(this, userName), "cell 1 1, growy");
 
         cards = new JPanel(new CardLayout());
         cards.add(nonPanel = new NonLeagueLanePanel(), "NonLeaguePanel");
@@ -46,5 +50,19 @@ public class MainFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+    }
+
+    public void setDialogShown(boolean state) {
+        dialogShown = state;
+        repaint();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        super.paint(g);
+        if(dialogShown) {
+            g.setColor(new Color(128, 128, 128, 128));
+            g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+        }
     }
 }
