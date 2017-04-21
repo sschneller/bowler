@@ -8,6 +8,7 @@ public class TestFrame extends JFrame {
 
     TestFrame() {
         add(new JScoreTable());
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         pack();
     }
 
