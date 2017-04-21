@@ -172,7 +172,7 @@ public class ControlFrame extends JFrame implements ActionListener {
             Gson gson = new Gson();
             ScoreTable table = gson.fromJson(response.toString(), ScoreTable.class);
             System.out.println(table.isLeagueMode());
-            System.out.println(table.getScoreFrames().get(0).getFrameName());
+//            System.out.println(table.getScoreFrames().get(0).getFrameName());
         }
     }
 }
