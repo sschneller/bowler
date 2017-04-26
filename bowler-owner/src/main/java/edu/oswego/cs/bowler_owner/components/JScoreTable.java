@@ -15,6 +15,7 @@ public class JScoreTable extends JPanel {
         Player p2 = new Player();
         p2.setPlayer_name("SAM");
         scoreTable.insertPlayer(p2);
+
         scoreTable.insertScore(p, "3", 0);
         scoreTable.insertScore(p, "7", 0);
         scoreTable.insertScore(p, "2", 1);

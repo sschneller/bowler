@@ -16,12 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.or;
+import static com.mongodb.client.model.Updates.combine;
+import static com.mongodb.client.model.Updates.set;
 
 public class DB {
 
     private static MongoClient mongoClient;
     private static MongoDatabase originDB;
-    private static MongoCollection<Document> connections, leagues, players, sequences, teams, accounts;
+    private static MongoCollection<Document> connections, leagues, players, pricings, sequences, teams, accounts;
 
     /* --- Initializer Methods --- */
 
@@ -43,6 +46,7 @@ public class DB {
         connections = originDB.getCollection("connections");
         leagues = originDB.getCollection("leagues");
         players = originDB.getCollection("players");
+        pricings = originDB.getCollection("pricings");
         sequences = originDB.getCollection("sequences");
         teams = originDB.getCollection("teams");
         accounts = originDB.getCollection("accounts");
@@ -233,4 +237,21 @@ public class DB {
 
     /* --- Pricing Methods --- */
 
+    public static void insertPricing(String type, double value) {
+        Document doc = new Document("type", type).append("value", value);
+        pricings.insertOne(doc);
+    }
+
+    public static double getPrice(String type) {
+        for(Document d : pricings.find()) {
+            if(d.getString("type").equals(type)) {
+                return d.getDouble("value");
+            }
+        }
+        return -1.0;
+    }
+
+    public static void updatePrice(String type, double newValue) {
+        pricings.updateOne(eq("type", type), combine(set("value", newValue)));
+    }
 }
