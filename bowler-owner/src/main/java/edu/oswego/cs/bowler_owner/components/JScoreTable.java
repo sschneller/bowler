@@ -1,9 +1,6 @@
 package edu.oswego.cs.bowler_owner.components;
 
-import edu.oswego.cs.bowler_owner.models.BFrame;
-import edu.oswego.cs.bowler_owner.models.PartitionedFrame;
-import edu.oswego.cs.bowler_owner.models.Player;
-import edu.oswego.cs.bowler_owner.models.ScoreTable;
+import edu.oswego.cs.bowler_owner.models.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,16 +16,41 @@ public class JScoreTable extends JPanel {
         p2.setPlayer_name("SAM");
         scoreTable.insertPlayer(p2);
         scoreTable.insertScore(p, "3", 0);
-        scoreTable.insertScore(p, "4", 0);
-//        scoreTable.getScores(p).forEach(a -> {
-//            if(a instanceof PartitionedFrame) {
-//                System.out.println(((PartitionedFrame)a).getLeftFrame());
-//                System.out.println(((PartitionedFrame)a).getRightFrame());
-//            }
-//        });
-//        scoreTable.insertScore(p, "10", 1);
-//        scoreTable.insertScore(p, "3", 2);
-//        scoreTable.insertScore(p, "7", 2);
+        scoreTable.insertScore(p, "7", 0);
+        scoreTable.insertScore(p, "2", 1);
+        scoreTable.insertScore(p, "2", 1);
+        scoreTable.insertScore(p, "7", 2);
+        scoreTable.insertScore(p, "1", 2);
+        scoreTable.insertScore(p, "9", 3);
+        scoreTable.insertScore(p, "0", 3);
+        scoreTable.insertScore(p, "5", 4);
+        scoreTable.insertScore(p, "5", 4);
+        scoreTable.insertScore(p, "2", 5);
+        scoreTable.insertScore(p, "6", 5);
+        scoreTable.insertScore(p, "1", 6);
+        scoreTable.insertScore(p, "3", 6);
+        scoreTable.insertScore(p, "10", 7);
+        scoreTable.insertScore(p, "3", 8);
+        scoreTable.insertScore(p, "4", 8);
+        scoreTable.insertScore(p, "1", 9);
+        scoreTable.insertScore(p, "9", 9);
+        scoreTable.insertScore(p, "10", 9);
+
+        scoreTable.insertScore(p2, "3", 0);
+        scoreTable.insertScore(p2, "7", 0);
+        scoreTable.insertScore(p2, "10", 1);
+        scoreTable.insertScore(p2, "7", 2);
+        scoreTable.insertScore(p2, "1", 2);
+        scoreTable.insertScore(p2, "9", 3);
+        scoreTable.insertScore(p2, "0", 3);
+        scoreTable.insertScore(p2, "5", 4);
+        scoreTable.insertScore(p2, "5", 4);
+        scoreTable.insertScore(p2, "2", 5);
+        scoreTable.insertScore(p2, "6", 5);
+        scoreTable.insertScore(p2, "1", 6);
+        scoreTable.insertScore(p2, "3", 6);
+
+        // scoreTable.getScores(p).forEach(a -> System.out.println(a));
     }
 
     @Override
@@ -116,47 +138,58 @@ public class JScoreTable extends JPanel {
                 if(frame instanceof PartitionedFrame) {
                     switch(j) {
                         case 1:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME1_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME1_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME1_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME1_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME1_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 2:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME2_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME2_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME2_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME2_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME2_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 3:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME3_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME3_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME3_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME3_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME3_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 4:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME4_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME4_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME4_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME4_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME4_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 5:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME5_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME5_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME5_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME5_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME5_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 6:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME6_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME6_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME6_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME6_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME6_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 7:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME7_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME7_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME7_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME7_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME7_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 8:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME8_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME8_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME8_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME8_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME8_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                         case 9:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME9_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME9_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            break;
-                        case 10:
-                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME10_XLOC_CENTER - (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
-                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME10_XLOC_CENTER + (xDivider / 4.0))).intValue() - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame())), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getLeftFrame(), ((Double)(FRAME9_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getLeftFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getRightFrame(), ((Double)(FRAME9_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                            g.drawString(((PartitionedFrame)frame).getBottomFrame(), ((Double)(FRAME9_XLOC_CENTER - (g.getFontMetrics().stringWidth(((PartitionedFrame)frame).getBottomFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                             break;
                     }
                     j++;
+                }
+                if(frame instanceof FinalFrame) {
+                    g.drawString(((FinalFrame)frame).getLeftFrame(), ((Double)(FRAME10_XLOC_CENTER - (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((FinalFrame)frame).getLeftFrame())) / 2.0)).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                    g.drawString(((FinalFrame)frame).getCenterFrame(), ((Double)(FRAME10_XLOC_CENTER - (g.getFontMetrics().stringWidth(((FinalFrame)frame).getCenterFrame())) / 2.0)).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                    g.drawString(((FinalFrame)frame).getRightFrame(), ((Double)(FRAME10_XLOC_CENTER + (xDivider / 4.0) - (g.getFontMetrics().stringWidth(((FinalFrame)frame).getRightFrame()) / 2.0))).intValue(), ((Double)((30.0 + (i * yDivider)) - (4.0 * (yDivider / 5.0)) + ((0.0 + g.getFontMetrics().getHeight()) / 2.0))).intValue());
+                    g.drawString(((FinalFrame)frame).getBottomFrame(), ((Double)(FRAME10_XLOC_CENTER - (g.getFontMetrics().stringWidth(((FinalFrame)frame).getBottomFrame())) / 2.0)).intValue(), ((Double)((30.0 + (i * yDivider)) - (yDivider / 5.0) + ((0.0 + g.getFontMetrics().getHeight() / 2.0)))).intValue());
                 }
             }
             i += 1.0;

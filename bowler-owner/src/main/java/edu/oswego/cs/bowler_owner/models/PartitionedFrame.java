@@ -36,25 +36,22 @@ public class PartitionedFrame implements BFrame {
     }
 
     @Override
-    public BFrame insertScore(Player p, String score) {
+    public BFrame insertScore(String score) {
         if(getLeftFrame().equals("")) {
             if(score.equals("10")) setRightFrame("X");
+            else if(score.equals("0")) setLeftFrame("-");
             else setLeftFrame(score);
         }
         else {
             if((Integer.parseInt(getLeftFrame()) + Integer.parseInt(score)) == 10) setRightFrame("/");
+            else if(score.equals("0")) setRightFrame("-");
             else setRightFrame(score);
         }
-        calculateBottoms();
         return this;
-    }
-
-    private void calculateBottoms() {
-
     }
 
     @Override
     public String toString() {
-        return "PartitionedFrame";
+        return "PartitionedFrame\n\tLeft: " + getLeftFrame() + "\tRight: " + getRightFrame();
     }
 }
