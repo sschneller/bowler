@@ -16,13 +16,13 @@ public class FullFrame implements BFrame {
     }
 
     @Override
-    public BFrame insertScore(Player p, String score, int index) {
+    public BFrame insertScore(String score) {
         setValue(score);
         return this;
     }
 
     @Override
     public String toString() {
-        return "FullFrame";
+        return "FullFrame\n\tValue: " + getValue();
     }
 }
