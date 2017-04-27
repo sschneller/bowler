@@ -26,7 +26,6 @@ public class LaneControlFrame extends JFrame {
         setTitle(title);
         setLayout(new MigLayout("", "[grow,fill][grow,fill]", "[grow,fill][][]"));
 
-        add(new JSwitchBox("Free", "League"), "growx, wrap");
         laneLabel = new JLabel("Lane " + lane);
         add(laneLabel);
         ipLabel = new JLabel(ip);

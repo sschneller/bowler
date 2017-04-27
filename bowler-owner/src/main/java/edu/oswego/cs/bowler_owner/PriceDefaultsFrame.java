@@ -4,16 +4,24 @@ package edu.oswego.cs.bowler_owner;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class PriceDefaultsFrame extends JFrame {
+public class PriceDefaultsFrame extends JDialog {
 
-    JLabel shoeLabel, socksLabel, gameLabel;
-    JTextField shoePrice, socksPrice, gamePrice;
-    JButton submitButton, cancelButton;
+    private JLabel shoeLabel, socksLabel, gameLabel;
+    private JTextField shoePrice, socksPrice, gamePrice;
+    private JButton submitButton, cancelButton;
+    private MainFrame rootFrame;
 
-    PriceDefaultsFrame() {
+    PriceDefaultsFrame(MainFrame root) {
 
-        setTitle("Price Preferences");
+        super(root, ModalityType.DOCUMENT_MODAL);
+
+        rootFrame = root;
+        rootFrame.setDialogShown(true);
+
+        setTitle("Prices");
+        setSize(260, 100);
         setLocationRelativeTo(null);
         setMinimumSize(this.getSize());
         setLayout(new MigLayout("", "[][grow,fill]", "[][][][]"));
@@ -69,7 +77,11 @@ public class PriceDefaultsFrame extends JFrame {
             }
         });
 
-        cancelButton.addActionListener(e -> dispose());
+        cancelButton.addActionListener(e -> {
+            this.setVisible(false);
+            rootFrame.setDialogShown(false);
+            rootFrame.repaint();
+        });
 
         add(dialogButtons, "span, growx");
         this.pack();
