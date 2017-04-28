@@ -6,50 +6,51 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JScoreTable extends JPanel {
-    ScoreTable scoreTable = new ScoreTable();
+    ScoreTable scoreTable;
 
-    public JScoreTable() {
-        Player p = new Player();
-        p.setPlayer_name("CHRIS");
-        scoreTable.insertPlayer(p);
-        Player p2 = new Player();
-        p2.setPlayer_name("SAM");
-        scoreTable.insertPlayer(p2);
-
-        scoreTable.insertScore(p, "3", 0);
-        scoreTable.insertScore(p, "7", 0);
-        scoreTable.insertScore(p, "2", 1);
-        scoreTable.insertScore(p, "2", 1);
-        scoreTable.insertScore(p, "7", 2);
-        scoreTable.insertScore(p, "1", 2);
-        scoreTable.insertScore(p, "9", 3);
-        scoreTable.insertScore(p, "0", 3);
-        scoreTable.insertScore(p, "5", 4);
-        scoreTable.insertScore(p, "5", 4);
-        scoreTable.insertScore(p, "2", 5);
-        scoreTable.insertScore(p, "6", 5);
-        scoreTable.insertScore(p, "1", 6);
-        scoreTable.insertScore(p, "3", 6);
-        scoreTable.insertScore(p, "10", 7);
-        scoreTable.insertScore(p, "3", 8);
-        scoreTable.insertScore(p, "4", 8);
-        scoreTable.insertScore(p, "1", 9);
-        scoreTable.insertScore(p, "9", 9);
-        scoreTable.insertScore(p, "10", 9);
-
-        scoreTable.insertScore(p2, "3", 0);
-        scoreTable.insertScore(p2, "7", 0);
-        scoreTable.insertScore(p2, "10", 1);
-        scoreTable.insertScore(p2, "7", 2);
-        scoreTable.insertScore(p2, "1", 2);
-        scoreTable.insertScore(p2, "9", 3);
-        scoreTable.insertScore(p2, "0", 3);
-        scoreTable.insertScore(p2, "5", 4);
-        scoreTable.insertScore(p2, "5", 4);
-        scoreTable.insertScore(p2, "2", 5);
-        scoreTable.insertScore(p2, "6", 5);
-        scoreTable.insertScore(p2, "1", 6);
-        scoreTable.insertScore(p2, "3", 6);
+    public JScoreTable(ScoreTable scoreTable) {
+        this.scoreTable = scoreTable;
+//        Player p = new Player();
+//        p.setPlayer_name("CHRIS");
+//        scoreTable.insertPlayer(p);
+//        Player p2 = new Player();
+//        p2.setPlayer_name("SAM");
+//        scoreTable.insertPlayer(p2);
+//
+//        scoreTable.insertScore(p, "3", 0);
+//        scoreTable.insertScore(p, "7", 0);
+//        scoreTable.insertScore(p, "2", 1);
+//        scoreTable.insertScore(p, "2", 1);
+//        scoreTable.insertScore(p, "7", 2);
+//        scoreTable.insertScore(p, "1", 2);
+//        scoreTable.insertScore(p, "9", 3);
+//        scoreTable.insertScore(p, "0", 3);
+//        scoreTable.insertScore(p, "5", 4);
+//        scoreTable.insertScore(p, "5", 4);
+//        scoreTable.insertScore(p, "2", 5);
+//        scoreTable.insertScore(p, "6", 5);
+//        scoreTable.insertScore(p, "1", 6);
+//        scoreTable.insertScore(p, "3", 6);
+//        scoreTable.insertScore(p, "10", 7);
+//        scoreTable.insertScore(p, "3", 8);
+//        scoreTable.insertScore(p, "4", 8);
+//        scoreTable.insertScore(p, "1", 9);
+//        scoreTable.insertScore(p, "9", 9);
+//        scoreTable.insertScore(p, "10", 9);
+//
+//        scoreTable.insertScore(p2, "3", 0);
+//        scoreTable.insertScore(p2, "7", 0);
+//        scoreTable.insertScore(p2, "10", 1);
+//        scoreTable.insertScore(p2, "7", 2);
+//        scoreTable.insertScore(p2, "1", 2);
+//        scoreTable.insertScore(p2, "9", 3);
+//        scoreTable.insertScore(p2, "0", 3);
+//        scoreTable.insertScore(p2, "5", 4);
+//        scoreTable.insertScore(p2, "5", 4);
+//        scoreTable.insertScore(p2, "2", 5);
+//        scoreTable.insertScore(p2, "6", 5);
+//        scoreTable.insertScore(p2, "1", 6);
+//        scoreTable.insertScore(p2, "3", 6);
 
         // scoreTable.getScores(p).forEach(a -> System.out.println(a));
     }
