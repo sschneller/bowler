@@ -22,6 +22,12 @@ public class FullFrame implements BFrame {
     }
 
     @Override
+    public BFrame modifyScore(String score, int side) {
+        setValue(score);
+        return this;
+    }
+
+    @Override
     public String toString() {
         return "FullFrame\n\tValue: " + getValue();
     }

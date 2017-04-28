@@ -70,6 +70,28 @@ public class FinalFrame implements BFrame {
     }
 
     @Override
+    public BFrame modifyScore(String score, int side) {
+        switch(side) {
+            case BFrame.LEFT: {
+                setLeftFrame(score);
+                break;
+            }
+            case BFrame.CENTER: {
+                setCenterFrame(score);
+                break;
+            }
+            case BFrame.RIGHT: {
+                setRightFrame(score);
+                break;
+            }
+            default: {
+                return null;
+            }
+        }
+        return this;
+    }
+
+    @Override
     public String toString() {
         return "FinalFrame\n\tLeft: " + getLeftFrame() + "\tCenter: " + getCenterFrame() + "\tRight: " + getRightFrame();
     }

@@ -51,6 +51,24 @@ public class PartitionedFrame implements BFrame {
     }
 
     @Override
+    public BFrame modifyScore(String score, int side) {
+        switch(side) {
+            case BFrame.LEFT: {
+                setLeftFrame(score);
+                break;
+            }
+            case BFrame.RIGHT: {
+                setRightFrame(score);
+                break;
+            }
+            default: {
+                return null;
+            }
+        }
+        return this;
+    }
+
+    @Override
     public String toString() {
         return "PartitionedFrame\n\tLeft: " + getLeftFrame() + "\tRight: " + getRightFrame();
     }

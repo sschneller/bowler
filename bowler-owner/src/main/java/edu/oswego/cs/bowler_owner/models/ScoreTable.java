@@ -30,9 +30,21 @@ public class ScoreTable {
         playerListMap.put(p, emptyFrames);
     }
 
+    public void modifyPlayer(Player oldPlayer, Player newPlayer) {
+        List<BFrame> data = playerListMap.remove(oldPlayer);
+        playerListMap.put(newPlayer, data);
+    }
+
     public void insertScore(Player p, String score, int index) {
         List<BFrame> updatedList = playerListMap.get(p);
         updatedList.set(index, playerListMap.get(p).get(index).insertScore(score));
+        playerListMap.replace(p, updatedList);
+        tabulateScores(p);
+    }
+
+    public void modifyScore(Player p, String score, int index, int side) {
+        List<BFrame> updatedList = playerListMap.get(p);
+        updatedList.set(index, playerListMap.get(p).get(index).modifyScore(score, side));
         playerListMap.replace(p, updatedList);
         tabulateScores(p);
     }
