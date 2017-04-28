@@ -40,11 +40,12 @@ public class SideMainFramePanel extends JPanel implements ActionListener {
             SwingUtilities.invokeLater(() -> safeFrame.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Set Defaults")){
-            final PriceDefaultsFrame priceDefaultsFrame = new PriceDefaultsFrame();
+            final PriceDefaultsFrame priceDefaultsFrame = new PriceDefaultsFrame(mainFrame);
             SwingUtilities.invokeLater(() -> priceDefaultsFrame.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Owner Features")){
-
+            final ControlFrame controlFrame = new ControlFrame(mainFrame);
+            SwingUtilities.invokeLater(() -> controlFrame.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Cash Out")){
 

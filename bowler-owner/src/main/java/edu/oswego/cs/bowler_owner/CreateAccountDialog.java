@@ -12,7 +12,7 @@ public class CreateAccountDialog extends JDialog {
     private JButton createButton;
     private JButton cancelButton;
 
-    public CreateAccountDialog(JFrame root) {
+    public CreateAccountDialog(JDialog root) {
         super(root, ModalityType.DOCUMENT_MODAL);
         setTitle("Create Account");
         setSize(260, 141);

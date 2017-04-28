@@ -7,6 +7,7 @@ import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -14,15 +15,15 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ControlFrame extends JFrame implements ActionListener {
+public class ControlFrame extends JDialog implements ActionListener {
 
     private final String USER_AGENT = "Mozilla/5.0";
     private JTextField jTextField;
     private JList<String> iplist;
-    private JButton openMenu;
-    private JButton createAccount;
+    private JButton openMenu, createAccount, exitManagement;
     private JButton send;
     private DefaultListModel model = new DefaultListModel();
+    private MainFrame rootFrame;
 
     /**
      * Empty constructor for the Frame.  Loads the DB, changes the necessary properties to the frame, and adds all
@@ -30,11 +31,16 @@ public class ControlFrame extends JFrame implements ActionListener {
      * JList with it.
      * @see JList
      */
-    ControlFrame() {
+    ControlFrame(MainFrame root) {
+
+        super(root, Dialog.ModalityType.DOCUMENT_MODAL);
         setTitle("System Controls");
         setLayout(new MigLayout("", "[grow,fill][]", "[][grow,fill][]"));
         setSize(400, 200);
+        setLocationRelativeTo(null);
         setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("bowling-ball.png")).getImage());
+        rootFrame = root;
+        rootFrame.setDialogShown(true);
 
         add(jTextField = new JTextField(""), "growx");
         add(send = new JButton("SEND"), "wrap");
@@ -43,20 +49,23 @@ public class ControlFrame extends JFrame implements ActionListener {
         addConnectionsToListModel();
         iplist = new JList<>(model);
         add(iplist, "span, wrap");
-        JPanel olding = new JPanel(new MigLayout("", "[grow,fill][grow,fill]", "[grow,fill]"));
-        openMenu = new JButton("OPEN CONTROLS");
+        JPanel commands = new JPanel(new MigLayout("", "[grow,fill][grow,fill][grow,fill]", "[grow,fill]"));
+        openMenu = new JButton("Edit Lanes");
         openMenu.addActionListener(this);
-        olding.add(openMenu);
-        JFrame root = this;
-        createAccount = new JButton("CREATE ACCOUNT");
-        createAccount.addActionListener(e12 -> new CreateAccountDialog(root).setVisible(true));
-        olding.add(createAccount);
-        add(olding, "span");
-    }
+        commands.add(openMenu);
+        createAccount = new JButton("Create New Account");
+        createAccount.addActionListener(e12 -> new CreateAccountDialog(this).setVisible(true));
+        commands.add(createAccount);
+        exitManagement = new JButton("Exit Management");
+        exitManagement.addActionListener(e ->{
+            this.setVisible(false);
+            rootFrame.setDialogShown(false);
+            rootFrame.repaint();
+        });
+        commands.add(exitManagement);
+        add(commands, "span");
 
-    public static void main(String[] args) {
-        final ControlFrame controlFrame = new ControlFrame();
-        SwingUtilities.invokeLater(() -> controlFrame.setVisible(true));
+        setUndecorated(true);
     }
 
     /**

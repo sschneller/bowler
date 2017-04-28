@@ -1,19 +1,28 @@
 package edu.oswego.cs.bowler_owner;
 
 
+import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
-public class PriceDefaultsFrame extends JFrame {
+public class PriceDefaultsFrame extends JDialog {
 
-    JLabel shoeLabel, socksLabel, gameLabel;
-    JTextField shoePrice, socksPrice, gamePrice;
-    JButton submitButton, cancelButton;
+    private JLabel shoeLabel, socksLabel, gameLabel;
+    private JTextField shoePrice, socksPrice, gamePrice;
+    private JButton submitButton, cancelButton;
+    private MainFrame rootFrame;
 
-    PriceDefaultsFrame() {
+    PriceDefaultsFrame(MainFrame root) {
 
-        setTitle("Price Preferences");
+        super(root, ModalityType.DOCUMENT_MODAL);
+
+        rootFrame = root;
+        rootFrame.setDialogShown(true);
+
+        setTitle("Prices");
+        setSize(260, 100);
         setLocationRelativeTo(null);
         setMinimumSize(this.getSize());
         setLayout(new MigLayout("", "[][grow,fill]", "[][][][]"));
@@ -24,6 +33,20 @@ public class PriceDefaultsFrame extends JFrame {
         add(socksPrice = new JTextField(), "growx, wrap");
         add(gameLabel = new JLabel("Game Price:"));
         add(gamePrice = new JTextField(), "growx, wrap");
+
+        if(DB.getPrice("shoePrice") != -1.0){
+            String shoePriceString = Double.toString(DB.getPrice("shoePrice"));
+            shoePrice.setText(shoePriceString);
+        }
+        if(DB.getPrice("sockPrice") != -1.0){
+            String sockPriceString = Double.toString(DB.getPrice("sockPrice"));
+            socksPrice.setText(sockPriceString);
+        }
+        if(DB.getPrice("gamePrice") != -1.0){
+            String gamePriceString = Double.toString(DB.getPrice("gamePrice"));
+            gamePrice.setText(gamePriceString);
+        }
+
 
         JPanel dialogButtons = new JPanel(new MigLayout("", "[grow,fill][][][grow,fill]", "[grow,fill]"));
         dialogButtons.add(submitButton = new JButton("Submit"), "cell 1 0");
@@ -38,6 +61,12 @@ public class PriceDefaultsFrame extends JFrame {
             }else{
                 try{
                     shoeFinalPrice = Double.parseDouble(shoePrice.getText());
+                    if(DB.getPrice("shoePrice") == -1){
+                        DB.insertPricing("shoePrice", shoeFinalPrice);
+                    }
+                    else{
+                        DB.updatePrice("shoePrice", shoeFinalPrice);
+                    }
                 }catch (NumberFormatException nfe){
                     errorMessage += "Invalid Price for a Shoe!" + System.lineSeparator();
                 }
@@ -47,6 +76,12 @@ public class PriceDefaultsFrame extends JFrame {
             }else{
                 try{
                     sockFinalPrice = Double.parseDouble(socksPrice.getText());
+                    if(DB.getPrice("sockPrice") == -1){
+                        DB.insertPricing("sockPrice", sockFinalPrice);
+                    }
+                    else{
+                        DB.updatePrice("sockPrice", sockFinalPrice);
+                    }
                 }catch (NumberFormatException nfe){
                     errorMessage += "Invalid Price for a Sock!" + System.lineSeparator();
                 }
@@ -56,6 +91,12 @@ public class PriceDefaultsFrame extends JFrame {
             }else{
                 try{
                     gameFinalPrice = Double.parseDouble(gamePrice.getText());
+                    if(DB.getPrice("gamePrice") == -1){
+                        DB.insertPricing("gamePrice", gameFinalPrice);
+                    }
+                    else{
+                        DB.updatePrice("gamePrice", gameFinalPrice);
+                    }
                 }catch (NumberFormatException nfe){
                     errorMessage += "Invalid Price for a Game!" + System.lineSeparator();
                 }
@@ -63,13 +104,19 @@ public class PriceDefaultsFrame extends JFrame {
             if(errorMessage.equals("")){
                 //Put doubles in the backend
                 this.setVisible(false);
+                rootFrame.setDialogShown(false);
+                rootFrame.repaint();
             }
             else{
                 JOptionPane.showMessageDialog(submitButton, errorMessage);
             }
         });
 
-        cancelButton.addActionListener(e -> dispose());
+        cancelButton.addActionListener(e -> {
+            this.setVisible(false);
+            rootFrame.setDialogShown(false);
+            rootFrame.repaint();
+        });
 
         add(dialogButtons, "span, growx");
         this.pack();
