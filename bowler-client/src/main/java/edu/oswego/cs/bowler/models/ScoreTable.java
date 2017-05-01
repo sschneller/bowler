@@ -1,10 +1,12 @@
 package edu.oswego.cs.bowler.models;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScoreTable {
     private boolean isLeagueMode;
-    private Map<Player, List<BFrame>> playerListMap = new HashMap<>();
+    private List<Player> playerList = new ArrayList<>();
+    private List<List<BFrame>> frameList = new ArrayList<>();
 
     public boolean isLeagueMode() {
         return isLeagueMode;
@@ -14,51 +16,51 @@ public class ScoreTable {
         isLeagueMode = leagueMode;
     }
 
-    public Set<Player> getPlayers() {
-        return playerListMap.keySet();
+    public List<Player> getPlayers() {
+        return playerList;
     }
 
     public List<BFrame> getScores(Player p) {
-        return playerListMap.get(p);
+        return frameList.get(playerList.indexOf(p));
     }
 
     public void insertPlayer(Player p) {
+        playerList.add(p);
         List<BFrame> emptyFrames = new ArrayList<>();
-        for(int i = 0; i < 9; i++) emptyFrames.add(new PartitionedFrame("", "", ""));
-        emptyFrames.add(new FinalFrame("", "", "", ""));
-        for(int i = 0; i < 3; i++) emptyFrames.add(new FullFrame(""));
-        playerListMap.put(p, emptyFrames);
+        for(int i = 0; i < 9; i++) emptyFrames.add(new BFrame("", "", "", "Partitioned"));
+        emptyFrames.add(new BFrame("", "", "", "", "Final"));
+        for(int i = 0; i < 3; i++) emptyFrames.add(new BFrame("", "Full"));
+        frameList.add(emptyFrames);
     }
 
     public void modifyPlayer(Player oldPlayer, Player newPlayer) {
-        List<BFrame> data = playerListMap.remove(oldPlayer);
-        playerListMap.put(newPlayer, data);
+        playerList.set(playerList.indexOf(oldPlayer), newPlayer);
     }
 
     public void insertScore(Player p, String score, int index) {
-        List<BFrame> updatedList = playerListMap.get(p);
-        updatedList.set(index, playerListMap.get(p).get(index).insertScore(score));
-        playerListMap.replace(p, updatedList);
+        List<BFrame> updatedList = frameList.get(playerList.indexOf(p));
+        updatedList.set(index, updatedList.get(index).insertScore(score));
+        frameList.set(playerList.indexOf(p), updatedList);
         tabulateScores(p);
     }
 
     public void modifyScore(Player p, String score, int index, int side) {
-        List<BFrame> updatedList = playerListMap.get(p);
-        updatedList.set(index, playerListMap.get(p).get(index).modifyScore(score, side));
-        playerListMap.replace(p, updatedList);
+        List<BFrame> updatedList = frameList.get(playerList.indexOf(p));
+        updatedList.set(index, updatedList.get(index).modifyScore(score, side));
+        frameList.set(playerList.indexOf(p), updatedList);
         tabulateScores(p);
     }
 
     private void tabulateScores(Player p) {
-        List<BFrame> bFrameList = playerListMap.get(p);
-        PartitionedFrame prevFrame = null, currFrame = null, nextFrame = null, nextNextFrame = null;
-        FinalFrame finalFrame = (FinalFrame)bFrameList.get(9);
+        List<BFrame> bFrameList = frameList.get(playerList.indexOf(p));
+        BFrame prevFrame = null, currFrame = null, nextFrame = null, nextNextFrame = null;
+        BFrame finalFrame = bFrameList.get(9);
         int prevValue = 0, total = 0;
         for(int i = 0; i <= 8; i++) {
-            if((i - 1) >= 0) prevFrame = (PartitionedFrame)bFrameList.get(i - 1);
-            currFrame = (PartitionedFrame)bFrameList.get(i );
-            if((i + 1) <= 8) nextFrame = (PartitionedFrame)bFrameList.get(i + 1);
-            if((i + 2) <= 8) nextNextFrame = (PartitionedFrame)bFrameList.get(i + 2);
+            if((i - 1) >= 0) prevFrame = bFrameList.get(i - 1);
+            currFrame = bFrameList.get(i);
+            if((i + 1) <= 8) nextFrame = bFrameList.get(i + 1);
+            if((i + 2) <= 8) nextNextFrame = bFrameList.get(i + 2);
             prevValue = 0;
             if(prevFrame != null) prevValue = Integer.parseInt(prevFrame.getBottomFrame());
 
