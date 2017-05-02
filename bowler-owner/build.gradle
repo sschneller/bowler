@@ -7,8 +7,8 @@ apply plugin: 'application'
 sourceCompatibility = 1.8
 
 run {
-    mainClassName = 'edu.oswego.cs.bowler_owner.TestFrame'
-    //mainClassName = 'edu.oswego.cs.bowler_owner.LoginFrame'
+    //mainClassName = 'edu.oswego.cs.bowler_owner.TestFrame'
+    mainClassName = 'edu.oswego.cs.bowler_owner.LoginFrame'
     // mainClassName = 'edu.oswego.cs.bowler_owner.MainFrame'
 }
 
