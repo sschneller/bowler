@@ -14,14 +14,18 @@ public class MainFrame extends JFrame implements ActionListener {
     private JPanel cards;
     private NonLeagueLanePanel nonPanel;
     private LeagueLanePanel leaguePanel;
+    private LaneInfoPanel infoPanel;
     private String userName;
     private boolean dialogShown = false;
 
     MainFrame(String user) {
-        setTitle("Owner Station");
+        setTitle("Bowling Alley");
         setLayout(new MigLayout("", "[grow,fill][]", "[][grow,fill]"));
 
+        cards = new JPanel(new CardLayout());
         userName = user;
+        nonPanel = new NonLeagueLanePanel(this);
+        leaguePanel = new LeagueLanePanel(this);
 
         //FIX AT LATER DATE TO TAKE INTO ACCOUNT TOOLBAR
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -33,11 +37,13 @@ public class MainFrame extends JFrame implements ActionListener {
         getContentPane().setBackground(backgroundColor);
 
         add(topMainFrame = new TopMainFramePanel(this), "span, growx");
-        add(sideMainFrame = new SideMainFramePanel(this, userName), "cell 1 1, growy");
+        add(sideMainFrame = new SideMainFramePanel(this, nonPanel, leaguePanel, userName), "cell 1 1, growy");
 
-        cards = new JPanel(new CardLayout());
-        cards.add(nonPanel = new NonLeagueLanePanel(), "NonLeaguePanel");
-        cards.add(leaguePanel = new LeagueLanePanel(), "LeaguePanel");
+        infoPanel = new LaneInfoPanel(this, topMainFrame);
+
+        cards.add(nonPanel, "NonLeaguePanel");
+        cards.add(leaguePanel, "LeaguePanel");
+        cards.add(infoPanel, "LaneInfoPanel");
         add(cards, "cell 0 1");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

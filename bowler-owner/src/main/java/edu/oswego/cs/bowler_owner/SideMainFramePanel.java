@@ -10,13 +10,17 @@ import java.awt.event.ActionListener;
 public class SideMainFramePanel extends JPanel implements ActionListener {
 
     private MainFrame mainFrame;
+    private NonLeagueLanePanel nonPanel;
+    private LeagueLanePanel leaguePanel;
     private SideButtonInMainFrame safeMode, setDefaults, ownerFeatures, cashOut;
     private String userName;
 
-    SideMainFramePanel(MainFrame mF, String user){
+    SideMainFramePanel(MainFrame mF, NonLeagueLanePanel nlP, LeagueLanePanel llP, String user){
         setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][grow,fill][grow,fill][grow,fill]"));
 
         mainFrame = mF;
+        nonPanel = nlP;
+        leaguePanel = llP;
         userName = user;
 
         Color backgroundColor = Color.decode("#666666");
@@ -44,7 +48,7 @@ public class SideMainFramePanel extends JPanel implements ActionListener {
             SwingUtilities.invokeLater(() -> priceDefaultsFrame.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Owner Features")){
-            final ControlFrame controlFrame = new ControlFrame(mainFrame);
+            final ControlFrame controlFrame = new ControlFrame(mainFrame, nonPanel, leaguePanel);
             SwingUtilities.invokeLater(() -> controlFrame.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Cash Out")){

@@ -17,6 +17,7 @@ public class CreateAccountDialog extends JDialog {
         setTitle("Create Account");
         setSize(260, 141);
         setMinimumSize(this.getSize());
+        setLocationRelativeTo(null);
         setLayout(new MigLayout("", "[][grow,fill]", "[][][]"));
         add(new JLabel("Username:"));
         add(usernameField = new JTextField(), "growx, wrap");
@@ -31,9 +32,13 @@ public class CreateAccountDialog extends JDialog {
                 DB.incrementSequence("accountid");
                 //TODO: Maybe add a confirmation dialog to check they want to make this account?
                 dispose();
+                root.setVisible(true);
             }
         });
-        cancelButton.addActionListener(e -> dispose());
+        cancelButton.addActionListener(e -> {
+            dispose();
+            root.setVisible(true);
+        });
         add(dialogButtons, "span, growx");
     }
 }

@@ -35,6 +35,10 @@ public class TopMainFramePanel extends JPanel implements ActionListener {
         logOut.addActionListener(this);
     }
 
+    public String getLeagueMode(){
+        return currentMode.getText();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (((JButton) e.getSource()).getText().equals("Switch to League Mode")) {

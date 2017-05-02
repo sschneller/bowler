@@ -24,6 +24,8 @@ public class ControlFrame extends JDialog implements ActionListener {
     private JButton send;
     private DefaultListModel model = new DefaultListModel();
     private MainFrame rootFrame;
+    private NonLeagueLanePanel nonPanel;
+    private LeagueLanePanel leaguePanel;
 
     /**
      * Empty constructor for the Frame.  Loads the DB, changes the necessary properties to the frame, and adds all
@@ -31,7 +33,7 @@ public class ControlFrame extends JDialog implements ActionListener {
      * JList with it.
      * @see JList
      */
-    ControlFrame(MainFrame root) {
+    ControlFrame(MainFrame root, NonLeagueLanePanel nlP, LeagueLanePanel llP) {
 
         super(root, Dialog.ModalityType.DOCUMENT_MODAL);
         setTitle("System Controls");
@@ -40,6 +42,8 @@ public class ControlFrame extends JDialog implements ActionListener {
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon(this.getClass().getClassLoader().getResource("bowling-ball.png")).getImage());
         rootFrame = root;
+        nonPanel = nlP;
+        leaguePanel = llP;
         rootFrame.setDialogShown(true);
 
         add(jTextField = new JTextField(""), "growx");
@@ -49,20 +53,23 @@ public class ControlFrame extends JDialog implements ActionListener {
         addConnectionsToListModel();
         iplist = new JList<>(model);
         add(iplist, "span, wrap");
-        JPanel commands = new JPanel(new MigLayout("", "[grow,fill][grow,fill][grow,fill]", "[grow,fill]"));
-        openMenu = new JButton("Edit Lanes");
+        JPanel commands = new JPanel(new MigLayout("", "[grow,fill, 50%][grow,fill, 50%]", "[grow,fill][grow,fill]"));
+        openMenu = new JButton("Lane Information");
         openMenu.addActionListener(this);
         commands.add(openMenu);
         createAccount = new JButton("Create New Account");
-        createAccount.addActionListener(e12 -> new CreateAccountDialog(this).setVisible(true));
-        commands.add(createAccount);
-        exitManagement = new JButton("Exit Management");
+        createAccount.addActionListener(e12 -> {
+            this.setVisible(false);
+            new CreateAccountDialog(this).setVisible(true);
+        });
+        commands.add(createAccount, "wrap");
+        exitManagement = new JButton("Close");
         exitManagement.addActionListener(e ->{
             this.setVisible(false);
             rootFrame.setDialogShown(false);
             rootFrame.repaint();
         });
-        commands.add(exitManagement);
+        commands.add(exitManagement, "span");
         add(commands, "span");
 
         setUndecorated(true);
