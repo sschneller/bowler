@@ -1,6 +1,5 @@
 package edu.oswego.cs.bowler_owner;
 
-import edu.oswego.cs.bowler_owner.components.JSwitchBox;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

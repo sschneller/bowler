@@ -4,7 +4,6 @@ import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class SafeFrame extends JDialog {
 

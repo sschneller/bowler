@@ -1,21 +1,18 @@
 package edu.oswego.cs.bowler;
 
 import com.google.gson.Gson;
-import edu.oswego.cs.bowler.models.ScoreFrame;
+import edu.oswego.cs.bowler.models.Player;
 import edu.oswego.cs.bowler.models.ScoreTable;
-import edu.oswego.cs.bowler.models.UserFrame;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.get;
 
 public class ClientServer {
 
-    // static Map<String, String> players = new HashMap<>();
     static ArrayList<String> players = new ArrayList<>();
 
     public static void main(String[] args) {
@@ -69,52 +66,61 @@ public class ClientServer {
             res.type("application/json");
             Gson gson = new Gson();
 
-            UserFrame user1 = new UserFrame();
-            user1.setName("Sam");
-            user1.setFrameValue("100");
-            UserFrame user2 = new UserFrame();
-            user2.setName("Chris");
-            user2.setFrameValue("200");
-            UserFrame user3 = new UserFrame();
-            user3.setName("Guy");
-            user3.setFrameValue("69");
-            UserFrame user4 = new UserFrame();
-            user4.setName("Banana");
-            user4.setFrameValue("420");
-            List<UserFrame> frameUsers = new ArrayList<>();
-            frameUsers.add(user1);
-            frameUsers.add(user2);
-            frameUsers.add(user3);
-            frameUsers.add(user4);
+            ScoreTable scoreTable = new ScoreTable();
 
-            ScoreFrame frame1 = new ScoreFrame();
-            frame1.setUserFrames(frameUsers);
-            frame1.setFrameName("Frame 1");
-            ScoreFrame frame2 = new ScoreFrame();
-            frame2.setUserFrames(frameUsers);
-            frame2.setFrameName("Frame 2");
-            ScoreFrame frame3 = new ScoreFrame();
-            frame3.setUserFrames(frameUsers);
-            frame3.setFrameName("Frame 3");
-            ScoreFrame frame4 = new ScoreFrame();
-            frame4.setUserFrames(frameUsers);
-            frame4.setFrameName("Frame 4");
-            ScoreFrame frame5 = new ScoreFrame();
-            frame5.setUserFrames(frameUsers);
-            frame5.setFrameName("Frame 5");
+            Player p = new Player();
+            p.setPlayer_name("CHRIS");
+            scoreTable.insertPlayer(p);
 
-            List<ScoreFrame> scoreFrames = new ArrayList<>();
-            scoreFrames.add(frame1);
-            scoreFrames.add(frame2);
-            scoreFrames.add(frame3);
-            scoreFrames.add(frame4);
-            scoreFrames.add(frame5);
+            Player p2 = new Player();
+            p2.setPlayer_name("SAM");
+            scoreTable.insertPlayer(p2);
 
-            ScoreTable table = new ScoreTable();
-            table.setLeagueMode(false);
-            table.setScoreFrames(scoreFrames);
+            scoreTable.insertScore(p, "3", 0);
+            scoreTable.insertScore(p, "7", 0);
+            scoreTable.insertScore(p, "2", 1);
+            scoreTable.insertScore(p, "2", 1);
+            scoreTable.insertScore(p, "7", 2);
+            scoreTable.insertScore(p, "1", 2);
+            scoreTable.insertScore(p, "9", 3);
+            scoreTable.insertScore(p, "0", 3);
+            scoreTable.insertScore(p, "5", 4);
+            scoreTable.insertScore(p, "5", 4);
+            scoreTable.insertScore(p, "2", 5);
+            scoreTable.insertScore(p, "6", 5);
+            scoreTable.insertScore(p, "1", 6);
+            scoreTable.insertScore(p, "3", 6);
+            scoreTable.insertScore(p, "10", 7);
+            scoreTable.insertScore(p, "3", 8);
+            scoreTable.insertScore(p, "4", 8);
+            scoreTable.insertScore(p, "1", 9);
+            scoreTable.insertScore(p, "9", 9);
+            scoreTable.insertScore(p, "10", 9);
+            scoreTable.insertScore(p, "100", 10);
+            scoreTable.insertScore(p, "200", 11);
+            scoreTable.insertScore(p, "300", 12);
 
-            return gson.toJson(table);
+            scoreTable.insertScore(p2, "3", 0);
+            scoreTable.insertScore(p2, "7", 0);
+            scoreTable.insertScore(p2, "10", 1);
+            scoreTable.insertScore(p2, "7", 2);
+            scoreTable.insertScore(p2, "1", 2);
+            scoreTable.insertScore(p2, "9", 3);
+            scoreTable.insertScore(p2, "0", 3);
+            scoreTable.insertScore(p2, "5", 4);
+            scoreTable.insertScore(p2, "5", 4);
+            scoreTable.insertScore(p2, "2", 5);
+            scoreTable.insertScore(p2, "6", 5);
+            scoreTable.insertScore(p2, "1", 6);
+            scoreTable.insertScore(p2, "3", 6);
+            scoreTable.insertScore(p2, "1", 7);
+            scoreTable.insertScore(p2, "3", 7);
+            scoreTable.insertScore(p2, "1", 8);
+            scoreTable.insertScore(p2, "3", 8);
+            scoreTable.insertScore(p2, "1", 9);
+            scoreTable.insertScore(p2, "3", 9);
+
+            return gson.toJson(scoreTable);
         });
     }
 }

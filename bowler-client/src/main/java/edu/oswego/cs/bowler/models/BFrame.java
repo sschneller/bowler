@@ -1,4 +1,4 @@
-package edu.oswego.cs.bowler_owner.models;
+package edu.oswego.cs.bowler.models;
 
 public class BFrame {
     public static final int LEFT = 0;
