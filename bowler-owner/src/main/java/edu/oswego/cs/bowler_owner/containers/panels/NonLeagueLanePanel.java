@@ -27,10 +27,10 @@ public class NonLeagueLanePanel extends JPanel implements ActionListener {
         mainFrame = root;
 
         addConnectionsToListModel();
-        for(int i = 0; i < model.size(); i++){
+        for(int i = 0; i < model.size(); i++) {
             JLaneButton lane = new JLaneButton(model.get(i).toString());
             lane.addActionListener(e -> {
-                CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
+                CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
                 cardLayout.show(mainFrame.getCardsLayout(), "LaneInfoPanel");
             });
             lanes.add(lane);
@@ -52,17 +52,17 @@ public class NonLeagueLanePanel extends JPanel implements ActionListener {
         }
     }
 
-    public void updateLanes(){
-        for(int i = 0; i < lanes.size(); i++){
+    public void updateLanes() {
+        for(int i = 0; i < lanes.size(); i++) {
             remove(lanes.get(i));
         }
         lanes.clear();
 
         addConnectionsToListModel();
-        for(int i = 0; i < model.size(); i++){
+        for(int i = 0; i < model.size(); i++) {
             JLaneButton lane = new JLaneButton(model.get(i).toString());
             lane.addActionListener(e -> {
-                CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
+                CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
                 cardLayout.show(mainFrame.getCardsLayout(), "LaneInfoPanel");
             });
             lanes.add(lane);

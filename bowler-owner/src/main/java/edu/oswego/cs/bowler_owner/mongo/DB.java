@@ -55,6 +55,7 @@ public class DB {
 
     /**
      * Returns the connections stored in the 'connections' collection as a list of Connection model objects
+     *
      * @return List of Connection models representing the stored data
      */
     public static List<Connection> getStoredConnections() {
@@ -67,6 +68,7 @@ public class DB {
 
     /**
      * Finds the associated IP from the laneid
+     *
      * @param laneid The unique id associated with the lane
      * @return The ip associated with the provided laneid
      */
@@ -81,6 +83,7 @@ public class DB {
 
     /**
      * Adds a connection to the 'connections' collection
+     *
      * @param c The connection you want to store
      */
     public static void insertConnection(Connection c) {
@@ -92,6 +95,7 @@ public class DB {
 
     /**
      * Get the current value of the sequence provided
+     *
      * @param sequence The String representation of the sequence name
      * @return The current value of the sequence
      */
@@ -106,6 +110,7 @@ public class DB {
 
     /**
      * Increments the provided sequence by 1
+     *
      * @param sequence The String name of the sequence
      */
     public static void incrementSequence(String sequence) {
@@ -116,6 +121,7 @@ public class DB {
 
     /**
      * Insert a new account into the 'accounts' collection
+     *
      * @param username The username to store
      * @param password The password to store
      */
@@ -131,6 +137,7 @@ public class DB {
 
     /**
      * Checks to see if the given username matches any in the 'accounts' collection
+     *
      * @param username The username to find
      * @return True if the username is in the collection, false if it isn't
      */
@@ -145,6 +152,7 @@ public class DB {
 
     /**
      * Checks to see if the given password matches the associated given username
+     *
      * @param username The username to check the password against
      * @param password The password to check
      * @return True if the password matches the one associated with the username, false if it doesn't

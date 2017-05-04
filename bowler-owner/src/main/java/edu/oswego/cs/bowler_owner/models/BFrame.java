@@ -110,14 +110,16 @@ public class BFrame {
             else if(!getLeftFrame().equals("") && getCenterFrame().equals("")) {
                 if(score.equals("10")) setCenterFrame("X");
                 else if(score.equals("0")) setCenterFrame("-");
-                else if(!getLeftFrame().equals("X") && !getLeftFrame().equals("-") && (Integer.parseInt(getLeftFrame()) + Integer.parseInt(score)) == 10) setCenterFrame("/");
+                else if(!getLeftFrame().equals("X") && !getLeftFrame().equals("-") && (Integer.parseInt(getLeftFrame()) + Integer.parseInt(score)) == 10)
+                    setCenterFrame("/");
                 else setCenterFrame(score);
             }
             else if(!getLeftFrame().equals("") && !getCenterFrame().equals("") && getRightFrame().equals("")) {
                 if(getLeftFrame().equals("X") || getCenterFrame().equals("/")) {
                     if(score.equals("10")) setRightFrame("X");
                     else if(score.equals("0")) setRightFrame("-");
-                    else if(!getCenterFrame().equals("X") && !getCenterFrame().equals("-") && !getCenterFrame().equals("/") && (Integer.parseInt(getCenterFrame()) + Integer.parseInt(score)) == 10) setRightFrame("/");
+                    else if(!getCenterFrame().equals("X") && !getCenterFrame().equals("-") && !getCenterFrame().equals("/") && (Integer.parseInt(getCenterFrame()) + Integer.parseInt(score)) == 10)
+                        setRightFrame("/");
                     else setRightFrame(score);
                 }
             }

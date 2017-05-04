@@ -12,7 +12,7 @@ public class LaneInfoPanel extends JPanel {
     private MainFrame mainFrame;
     private TopMainFramePanel topPanel;
 
-    public LaneInfoPanel(MainFrame root, TopMainFramePanel tPanel){
+    public LaneInfoPanel(MainFrame root, TopMainFramePanel tPanel) {
         setLayout(new MigLayout());
         Color backgroundColor = Color.decode("#B3B3B3");
         setBackground(backgroundColor);
@@ -21,11 +21,11 @@ public class LaneInfoPanel extends JPanel {
 
         JNonLaneButtonInPanel back = new JNonLaneButtonInPanel("Back");
         back.addActionListener(e -> {
-            CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
+            CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
             if(tPanel.getLeagueMode().equals("Regular Mode")) {
                 cardLayout.show(mainFrame.getCardsLayout(), "NonLeaguePanel");
             }
-            else{
+            else {
                 cardLayout.show(mainFrame.getCardsLayout(), "LeaguePanel");
             }
         });

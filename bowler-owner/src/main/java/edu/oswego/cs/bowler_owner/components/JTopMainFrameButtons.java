@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class JTopMainFrameButtons extends JButton {
 
-    public JTopMainFrameButtons(String name){
+    public JTopMainFrameButtons(String name) {
         this.setText(name);
         Color topScreenColors = Color.decode("#000000");
         this.setBackground(topScreenColors);

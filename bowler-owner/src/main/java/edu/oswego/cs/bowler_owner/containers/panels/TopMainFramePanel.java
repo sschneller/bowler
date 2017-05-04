@@ -16,7 +16,7 @@ public class TopMainFramePanel extends JPanel implements ActionListener {
     private JTopMainFrameButtons logOut, leagueMode;
     private JLabel currentMode;
 
-    public TopMainFramePanel(MainFrame mF){
+    public TopMainFramePanel(MainFrame mF) {
         setLayout(new MigLayout("", "[][grow,fill][][grow,fill][]", "[grow,fill]"));
 
         mainFrame = mF;
@@ -38,25 +38,25 @@ public class TopMainFramePanel extends JPanel implements ActionListener {
         logOut.addActionListener(this);
     }
 
-    public String getLeagueMode(){
+    public String getLeagueMode() {
         return currentMode.getText();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (((JButton) e.getSource()).getText().equals("Switch to League Mode")) {
+        if(((JButton)e.getSource()).getText().equals("Switch to League Mode")) {
             leagueMode.setText("Switch to Regular Mode");
             currentMode.setText("League Mode");
-            CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
+            CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
             cardLayout.show(mainFrame.getCardsLayout(), "LeaguePanel");
         }
-        else if (((JButton) e.getSource()).getText().equals("Switch to Regular Mode")) {
+        else if(((JButton)e.getSource()).getText().equals("Switch to Regular Mode")) {
             leagueMode.setText("Switch to League Mode");
             currentMode.setText("Regular Mode");
-            CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
+            CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
             cardLayout.show(mainFrame.getCardsLayout(), "NonLeaguePanel");
         }
-        else if(((JButton)e.getSource()).getText().equals("Log Out")){
+        else if(((JButton)e.getSource()).getText().equals("Log Out")) {
             mainFrame.setVisible(false);
             final LoginFrame logInFrame = new LoginFrame();
             SwingUtilities.invokeLater(() -> logInFrame.setVisible(true));

@@ -34,15 +34,15 @@ public class PriceDefaultsDialog extends JDialog {
         add(gameLabel = new JLabel("Game Price:"));
         add(gamePrice = new JTextField(), "growx, wrap");
 
-        if(DB.getPrice("shoePrice") != -1.0){
+        if(DB.getPrice("shoePrice") != -1.0) {
             String shoePriceString = Double.toString(DB.getPrice("shoePrice"));
             shoePrice.setText(shoePriceString);
         }
-        if(DB.getPrice("sockPrice") != -1.0){
+        if(DB.getPrice("sockPrice") != -1.0) {
             String sockPriceString = Double.toString(DB.getPrice("sockPrice"));
             socksPrice.setText(sockPriceString);
         }
-        if(DB.getPrice("gamePrice") != -1.0){
+        if(DB.getPrice("gamePrice") != -1.0) {
             String gamePriceString = Double.toString(DB.getPrice("gamePrice"));
             gamePrice.setText(gamePriceString);
         }
@@ -56,58 +56,64 @@ public class PriceDefaultsDialog extends JDialog {
             String errorMessage = "";
             double shoeFinalPrice, sockFinalPrice, gameFinalPrice;
 
-            if(shoePrice.getText().equals("")){
+            if(shoePrice.getText().equals("")) {
                 errorMessage += "Need to Enter a Shoe!" + System.lineSeparator();
-            }else{
-                try{
+            }
+            else {
+                try {
                     shoeFinalPrice = Double.parseDouble(shoePrice.getText());
-                    if(DB.getPrice("shoePrice") == -1){
+                    if(DB.getPrice("shoePrice") == -1) {
                         DB.insertPricing("shoePrice", shoeFinalPrice);
                     }
-                    else{
+                    else {
                         DB.updatePrice("shoePrice", shoeFinalPrice);
                     }
-                }catch (NumberFormatException nfe){
+                }
+                catch(NumberFormatException nfe) {
                     errorMessage += "Invalid Price for a Shoe!" + System.lineSeparator();
                 }
             }
-            if(socksPrice.getText().equals("")){
+            if(socksPrice.getText().equals("")) {
                 errorMessage += "Need to Enter a Sock!" + System.lineSeparator();
-            }else{
-                try{
+            }
+            else {
+                try {
                     sockFinalPrice = Double.parseDouble(socksPrice.getText());
-                    if(DB.getPrice("sockPrice") == -1){
+                    if(DB.getPrice("sockPrice") == -1) {
                         DB.insertPricing("sockPrice", sockFinalPrice);
                     }
-                    else{
+                    else {
                         DB.updatePrice("sockPrice", sockFinalPrice);
                     }
-                }catch (NumberFormatException nfe){
+                }
+                catch(NumberFormatException nfe) {
                     errorMessage += "Invalid Price for a Sock!" + System.lineSeparator();
                 }
             }
-            if(gamePrice.getText().equals("")){
+            if(gamePrice.getText().equals("")) {
                 errorMessage += "Need to Enter a Game!" + System.lineSeparator();
-            }else{
-                try{
+            }
+            else {
+                try {
                     gameFinalPrice = Double.parseDouble(gamePrice.getText());
-                    if(DB.getPrice("gamePrice") == -1){
+                    if(DB.getPrice("gamePrice") == -1) {
                         DB.insertPricing("gamePrice", gameFinalPrice);
                     }
-                    else{
+                    else {
                         DB.updatePrice("gamePrice", gameFinalPrice);
                     }
-                }catch (NumberFormatException nfe){
+                }
+                catch(NumberFormatException nfe) {
                     errorMessage += "Invalid Price for a Game!" + System.lineSeparator();
                 }
             }
-            if(errorMessage.equals("")){
+            if(errorMessage.equals("")) {
                 //Put doubles in the backend
                 this.setVisible(false);
                 rootFrame.setDialogShown(false);
                 rootFrame.repaint();
             }
-            else{
+            else {
                 JOptionPane.showMessageDialog(submitButton, errorMessage);
             }
         });

@@ -50,7 +50,7 @@ public class MainFrame extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public JPanel getCardsLayout(){
+    public JPanel getCardsLayout() {
         return cards;
     }
 

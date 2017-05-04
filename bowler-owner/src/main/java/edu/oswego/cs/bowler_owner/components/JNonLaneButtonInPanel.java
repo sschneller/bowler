@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class JNonLaneButtonInPanel extends JButton {
 
-    public JNonLaneButtonInPanel(String name){
+    public JNonLaneButtonInPanel(String name) {
         this.setText(name);
         Color nonLaneButtons = Color.decode("#009999");
         this.setBackground(nonLaneButtons);

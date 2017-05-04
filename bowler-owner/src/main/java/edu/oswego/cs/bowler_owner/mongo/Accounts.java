@@ -11,6 +11,7 @@ public class Accounts {
 
     /**
      * Takes the given password as a String, generates the salt, and then hashes the password using SHA-1 Encryption
+     *
      * @param password The un-salted, un-unhashed, plaintext password
      * @return The salted hashed password
      * @throws NoSuchAlgorithmException
@@ -29,6 +30,7 @@ public class Accounts {
 
     /**
      * Generates the salt for hashing using a random number gen
+     *
      * @return The salt for hashing
      * @throws NoSuchAlgorithmException
      */
@@ -41,6 +43,7 @@ public class Accounts {
 
     /**
      * Converts the provided byte array to Hexidecimal format
+     *
      * @param array The byte array to convert to Hex
      * @return The hex output
      * @throws NoSuchAlgorithmException
@@ -59,8 +62,9 @@ public class Accounts {
 
     /**
      * Takes the un-hashed password, and the hashed one, and will compare them to determine if they match
+     *
      * @param originalPassword The un-hashed password
-     * @param storedPassword The password with the iterations, salt, and hashed text
+     * @param storedPassword   The password with the iterations, salt, and hashed text
      * @return True if the passwords match, false if they don't
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeySpecException
@@ -84,6 +88,7 @@ public class Accounts {
 
     /**
      * Converts hexidecimal back into a byte array
+     *
      * @param hex The hexidecimal string to convert to byte array
      * @return The output byte array
      * @throws NoSuchAlgorithmException

@@ -20,7 +20,7 @@ public class SideMainFramePanel extends JPanel implements ActionListener {
     private JSideButtonInMainFrame safeMode, setDefaults, ownerFeatures, cashOut;
     private String userName;
 
-    public SideMainFramePanel(MainFrame mF, NonLeagueLanePanel nlP, LeagueLanePanel llP, String user){
+    public SideMainFramePanel(MainFrame mF, NonLeagueLanePanel nlP, LeagueLanePanel llP, String user) {
         setLayout(new MigLayout("", "[grow,fill]", "[grow,fill][grow,fill][grow,fill][grow,fill]"));
 
         mainFrame = mF;
@@ -44,19 +44,19 @@ public class SideMainFramePanel extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(((JButton)e.getSource()).getText().equals("Safe Mode")){
+        if(((JButton)e.getSource()).getText().equals("Safe Mode")) {
             final SafeModeDialog safeModeDialog = new SafeModeDialog(mainFrame, userName);
             SwingUtilities.invokeLater(() -> safeModeDialog.setVisible(true));
         }
-        else if(((JButton)e.getSource()).getText().equals("Set Defaults")){
+        else if(((JButton)e.getSource()).getText().equals("Set Defaults")) {
             final PriceDefaultsDialog priceDefaultsDialog = new PriceDefaultsDialog(mainFrame);
             SwingUtilities.invokeLater(() -> priceDefaultsDialog.setVisible(true));
         }
-        else if(((JButton)e.getSource()).getText().equals("Owner Features")){
+        else if(((JButton)e.getSource()).getText().equals("Owner Features")) {
             final ControlDialog controlDialog = new ControlDialog(mainFrame, nonPanel, leaguePanel);
             SwingUtilities.invokeLater(() -> controlDialog.setVisible(true));
         }
-        else if(((JButton)e.getSource()).getText().equals("Cash Out")){
+        else if(((JButton)e.getSource()).getText().equals("Cash Out")) {
 
         }
     }

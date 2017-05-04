@@ -35,6 +35,7 @@ public class ControlDialog extends JDialog implements ActionListener {
      * Empty constructor for the Frame.  Loads the DB, changes the necessary properties to the frame, and adds all
      * components to the frame.  It then pulls all the respective connection IPs stored in the DB, and populates the
      * JList with it.
+     *
      * @see JList
      */
     public ControlDialog(MainFrame root, NonLeagueLanePanel nlP, LeagueLanePanel llP) {
@@ -68,7 +69,7 @@ public class ControlDialog extends JDialog implements ActionListener {
         });
         commands.add(createAccount, "wrap");
         exitManagement = new JButton("Close");
-        exitManagement.addActionListener(e ->{
+        exitManagement.addActionListener(e -> {
             this.setVisible(false);
             rootFrame.setDialogShown(false);
             rootFrame.repaint();
@@ -123,6 +124,7 @@ public class ControlDialog extends JDialog implements ActionListener {
     /**
      * Takes the url of the pi, and attempts to send a get request and receive a response.  This is to determine if the
      * pi is actually reachable as an endpoint.
+     *
      * @param s String of the url portion of the address
      * @throws Exception
      */
@@ -158,6 +160,7 @@ public class ControlDialog extends JDialog implements ActionListener {
 
     /**
      * Sends gets to the provided url, along with a concatenated string of params and their values.
+     *
      * @param s String representation of the url
      * @param p String representation of the parameters and their values
      * @throws Exception

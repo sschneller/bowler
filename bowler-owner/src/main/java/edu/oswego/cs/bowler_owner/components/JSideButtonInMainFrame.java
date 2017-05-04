@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class JSideButtonInMainFrame extends JButton {
 
-    public JSideButtonInMainFrame(String name){
+    public JSideButtonInMainFrame(String name) {
         this.setText(name);
         Color buttonColors = Color.decode("#006666");
         this.setBackground(buttonColors);
