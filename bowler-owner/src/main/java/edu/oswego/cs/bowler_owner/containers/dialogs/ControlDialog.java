@@ -1,7 +1,6 @@
 package edu.oswego.cs.bowler_owner.containers.dialogs;
 
 import com.google.gson.Gson;
-import edu.oswego.cs.bowler_owner.containers.dialogs.CreateAccountDialog;
 import edu.oswego.cs.bowler_owner.containers.frames.LaneControlFrame;
 import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import edu.oswego.cs.bowler_owner.containers.panels.LeagueLanePanel;

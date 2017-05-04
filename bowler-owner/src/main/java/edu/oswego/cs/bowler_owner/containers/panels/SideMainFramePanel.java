@@ -2,9 +2,9 @@ package edu.oswego.cs.bowler_owner.containers.panels;
 
 import edu.oswego.cs.bowler_owner.components.JSideButtonInMainFrame;
 import edu.oswego.cs.bowler_owner.containers.dialogs.ControlDialog;
-import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import edu.oswego.cs.bowler_owner.containers.dialogs.PriceDefaultsDialog;
 import edu.oswego.cs.bowler_owner.containers.dialogs.SafeModeDialog;
+import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

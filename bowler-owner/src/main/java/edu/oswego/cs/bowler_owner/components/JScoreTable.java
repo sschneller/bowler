@@ -1,6 +1,8 @@
 package edu.oswego.cs.bowler_owner.components;
 
-import edu.oswego.cs.bowler_owner.models.*;
+import edu.oswego.cs.bowler_owner.models.BFrame;
+import edu.oswego.cs.bowler_owner.models.Player;
+import edu.oswego.cs.bowler_owner.models.ScoreTable;
 
 import javax.swing.*;
 import java.awt.*;
