@@ -175,4 +175,23 @@ public class BFrame {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        String output = "";
+        if(type.equals("Partitioned")) {
+            output = "PartitionedFrame:";
+            output += "\n\tLeft: " + getLeftFrame() + "\tRight: " + getRightFrame() + "\tBottom: " + getBottomFrame();
+        }
+        else if(type.equals("Final")) {
+            output = "FinalFrame:";
+            output += "\n\tLeft: " + getLeftFrame() + "\tCenter: " + getCenterFrame() + "\tRight: " + getRightFrame() + "\tBottom: " + getBottomFrame();
+        }
+        else if(type.equals("Full")) {
+            output = "FullFrame:";
+            output += "\n\tValue: " + getValue();
+        }
+
+        return output;
+    }
 }

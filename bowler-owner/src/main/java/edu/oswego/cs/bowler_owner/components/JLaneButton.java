@@ -5,7 +5,10 @@ import java.awt.*;
 
 public class JLaneButton extends JButton {
 
-    public JLaneButton(String name) {
+    public String ip;
+
+    public JLaneButton(String name, String ip) {
+        this.ip = ip;
         this.setText(name);
         Color laneColor = Color.decode("#0829CC");
         this.setBackground(laneColor);

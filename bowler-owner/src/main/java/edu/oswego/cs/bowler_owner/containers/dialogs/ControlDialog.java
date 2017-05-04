@@ -193,11 +193,5 @@ public class ControlDialog extends JDialog implements ActionListener {
 
         // print result
         System.out.println(response.toString());
-        if(p.equals("/scoretable")) {
-            Gson gson = new Gson();
-            ScoreTable table = gson.fromJson(response.toString(), ScoreTable.class);
-            System.out.println(table.isLeagueMode());
-//            System.out.println(table.getScoreFrames().get(0).getFrameName());
-        }
     }
 }

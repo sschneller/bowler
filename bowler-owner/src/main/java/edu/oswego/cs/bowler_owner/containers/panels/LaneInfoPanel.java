@@ -13,7 +13,7 @@ public class LaneInfoPanel extends JPanel {
     private TopMainFramePanel topPanel;
 
     public LaneInfoPanel(MainFrame root, TopMainFramePanel tPanel) {
-        setLayout(new MigLayout());
+        setLayout(new MigLayout("debug", "[grow,fill]", "[][grow,fill][]"));
         Color backgroundColor = Color.decode("#B3B3B3");
         setBackground(backgroundColor);
         mainFrame = root;
@@ -29,7 +29,7 @@ public class LaneInfoPanel extends JPanel {
                 cardLayout.show(mainFrame.getCardsLayout(), "LeaguePanel");
             }
         });
-        add(back, "cell 1 0");
+        add(back, "wrap");
     }
 
 }

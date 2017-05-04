@@ -12,7 +12,7 @@ public class JScoreTable extends JPanel {
 
     public JScoreTable(ScoreTable scoreTable) {
         this.scoreTable = scoreTable;
-        // scoreTable.getScores(p).forEach(a -> System.out.println(a));
+        scoreTable.getPlayers().forEach(p -> scoreTable.getScores(p).forEach(System.out::println));
     }
 
     @Override
