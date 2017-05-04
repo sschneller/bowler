@@ -1,11 +1,11 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.components;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class NonLaneButtonInPanel extends JButton{
+public class JNonLaneButtonInPanel extends JButton {
 
-    NonLaneButtonInPanel(String name){
+    public JNonLaneButtonInPanel(String name){
         this.setText(name);
         Color nonLaneButtons = Color.decode("#009999");
         this.setBackground(nonLaneButtons);

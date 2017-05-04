@@ -1,5 +1,8 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.panels;
 
+import edu.oswego.cs.bowler_owner.components.JLaneButton;
+import edu.oswego.cs.bowler_owner.components.JNonLaneButtonInPanel;
+import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import edu.oswego.cs.bowler_owner.models.Connection;
 import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
@@ -12,12 +15,12 @@ import java.util.ArrayList;
 
 public class LeagueLanePanel extends JPanel implements ActionListener {
 
-    private ArrayList<LaneButton> lanes = new ArrayList<>();
+    private ArrayList<JLaneButton> lanes = new ArrayList<>();
     private DefaultListModel model = new DefaultListModel();
-    private NonLaneButtonInPanel lanesControl, pinsettersControl, absentTeams;
+    private JNonLaneButtonInPanel lanesControl, pinsettersControl, absentTeams;
     private MainFrame mainFrame;
 
-    LeagueLanePanel(MainFrame root) {
+    public LeagueLanePanel(MainFrame root) {
 
         setLayout(new MigLayout());
         Color backgroundColor = Color.decode("#B3B3B3");
@@ -26,7 +29,7 @@ public class LeagueLanePanel extends JPanel implements ActionListener {
 
         addConnectionsToListModel();
         for(int i = 0; i < model.size(); i++){
-            LaneButton lane = new LaneButton(model.get(i).toString());
+            JLaneButton lane = new JLaneButton(model.get(i).toString());
             lane.addActionListener(e -> {
                 CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
                 cardLayout.show(mainFrame.getCardsLayout(), "LaneInfoPanel");
@@ -35,9 +38,9 @@ public class LeagueLanePanel extends JPanel implements ActionListener {
             add(lane, "wrap");
         }
 
-        add(lanesControl = new NonLaneButtonInPanel("Turn Lanes On"));
-        add(pinsettersControl = new NonLaneButtonInPanel("Pinsetters On"));
-        add(absentTeams = new NonLaneButtonInPanel("Absent Teams"));
+        add(lanesControl = new JNonLaneButtonInPanel("Turn Lanes On"));
+        add(pinsettersControl = new JNonLaneButtonInPanel("Pinsetters On"));
+        add(absentTeams = new JNonLaneButtonInPanel("Absent Teams"));
     }
 
     /**
@@ -50,7 +53,7 @@ public class LeagueLanePanel extends JPanel implements ActionListener {
         }
     }
 
-    private void updateLanes(){
+    public void updateLanes(){
         for(int i = 0; i < lanes.size(); i++){
             remove(lanes.get(i));
         }
@@ -58,7 +61,7 @@ public class LeagueLanePanel extends JPanel implements ActionListener {
 
         addConnectionsToListModel();
         for(int i = 0; i < model.size(); i++){
-            LaneButton lane = new LaneButton(model.get(i).toString());
+            JLaneButton lane = new JLaneButton(model.get(i).toString());
             lane.addActionListener(e -> {
                 CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
                 cardLayout.show(mainFrame.getCardsLayout(), "LaneInfoPanel");

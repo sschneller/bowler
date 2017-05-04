@@ -1,11 +1,11 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.components;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class SideButtonInMainFrame extends JButton {
+public class JSideButtonInMainFrame extends JButton {
 
-    SideButtonInMainFrame(String name){
+    public JSideButtonInMainFrame(String name){
         this.setText(name);
         Color buttonColors = Color.decode("#006666");
         this.setBackground(buttonColors);

@@ -1,11 +1,12 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.frames;
 
+import edu.oswego.cs.bowler_owner.containers.dialogs.ControlDialog;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 
 public class LaneControlFrame extends JFrame {
-    private ControlFrame parentFrame;
+    private ControlDialog parentFrame;
     private String title;
     private int lane;
     private String ip;
@@ -15,7 +16,7 @@ public class LaneControlFrame extends JFrame {
     private JButton getButton;
     private JButton postButton;
 
-    public LaneControlFrame(ControlFrame pF, String t, int l, String i) {
+    public LaneControlFrame(ControlDialog pF, String t, int l, String i) {
         parentFrame = pF;
         title = t;
         lane = l;

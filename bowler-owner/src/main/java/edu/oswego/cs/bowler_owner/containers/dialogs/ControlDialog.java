@@ -1,6 +1,11 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.dialogs;
 
 import com.google.gson.Gson;
+import edu.oswego.cs.bowler_owner.containers.dialogs.CreateAccountDialog;
+import edu.oswego.cs.bowler_owner.containers.frames.LaneControlFrame;
+import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
+import edu.oswego.cs.bowler_owner.containers.panels.LeagueLanePanel;
+import edu.oswego.cs.bowler_owner.containers.panels.NonLeagueLanePanel;
 import edu.oswego.cs.bowler_owner.models.Connection;
 import edu.oswego.cs.bowler_owner.models.ScoreTable;
 import edu.oswego.cs.bowler_owner.mongo.DB;
@@ -15,7 +20,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ControlFrame extends JDialog implements ActionListener {
+public class ControlDialog extends JDialog implements ActionListener {
 
     private final String USER_AGENT = "Mozilla/5.0";
     private JTextField jTextField;
@@ -33,7 +38,7 @@ public class ControlFrame extends JDialog implements ActionListener {
      * JList with it.
      * @see JList
      */
-    ControlFrame(MainFrame root, NonLeagueLanePanel nlP, LeagueLanePanel llP) {
+    public ControlDialog(MainFrame root, NonLeagueLanePanel nlP, LeagueLanePanel llP) {
 
         super(root, Dialog.ModalityType.DOCUMENT_MODAL);
         setTitle("System Controls");
@@ -102,6 +107,8 @@ public class ControlFrame extends JDialog implements ActionListener {
                     DB.incrementSequence("laneid");
                     addConnectionsToListModel();
                     iplist.repaint();
+                    nonPanel.updateLanes();
+                    leaguePanel.updateLanes();
                 }
                 catch(Exception e1) {
                     e1.printStackTrace();
@@ -156,7 +163,7 @@ public class ControlFrame extends JDialog implements ActionListener {
      * @param p String representation of the parameters and their values
      * @throws Exception
      */
-    protected void sendGet(String s, String p) throws Exception {
+    public void sendGet(String s, String p) throws Exception {
         String url = "http://" + s + ":4567" + p;
 
         URL obj = new URL(url);

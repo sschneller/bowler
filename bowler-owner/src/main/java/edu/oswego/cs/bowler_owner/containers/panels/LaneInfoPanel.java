@@ -1,5 +1,7 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.panels;
 
+import edu.oswego.cs.bowler_owner.components.JNonLaneButtonInPanel;
+import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -10,14 +12,14 @@ public class LaneInfoPanel extends JPanel {
     private MainFrame mainFrame;
     private TopMainFramePanel topPanel;
 
-    LaneInfoPanel(MainFrame root, TopMainFramePanel tPanel){
+    public LaneInfoPanel(MainFrame root, TopMainFramePanel tPanel){
         setLayout(new MigLayout());
         Color backgroundColor = Color.decode("#B3B3B3");
         setBackground(backgroundColor);
         mainFrame = root;
         topPanel = tPanel;
 
-        NonLaneButtonInPanel back = new NonLaneButtonInPanel("Back");
+        JNonLaneButtonInPanel back = new JNonLaneButtonInPanel("Back");
         back.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) mainFrame.getCardsLayout().getLayout();
             if(tPanel.getLeagueMode().equals("Regular Mode")) {

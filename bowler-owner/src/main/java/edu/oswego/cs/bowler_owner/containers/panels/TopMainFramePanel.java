@@ -1,5 +1,8 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.panels;
 
+import edu.oswego.cs.bowler_owner.components.JTopMainFrameButtons;
+import edu.oswego.cs.bowler_owner.containers.frames.LoginFrame;
+import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -10,10 +13,10 @@ import java.awt.event.ActionListener;
 public class TopMainFramePanel extends JPanel implements ActionListener {
 
     private MainFrame mainFrame;
-    private TopMainFrameButtons logOut, leagueMode;
+    private JTopMainFrameButtons logOut, leagueMode;
     private JLabel currentMode;
 
-    TopMainFramePanel(MainFrame mF){
+    public TopMainFramePanel(MainFrame mF){
         setLayout(new MigLayout("", "[][grow,fill][][grow,fill][]", "[grow,fill]"));
 
         mainFrame = mF;
@@ -21,7 +24,7 @@ public class TopMainFramePanel extends JPanel implements ActionListener {
         Color backgroundColor = Color.decode("#666666");
         setBackground(backgroundColor);
 
-        add(leagueMode = new TopMainFrameButtons("Switch to League Mode"), "cell 0 0");
+        add(leagueMode = new JTopMainFrameButtons("Switch to League Mode"), "cell 0 0");
 
         Color topScreenColors = Color.decode("#000000");
         add(currentMode = new JLabel("Regular Mode", SwingConstants.CENTER), "cell 2 0, pad 0 -10 0 10");
@@ -29,7 +32,7 @@ public class TopMainFramePanel extends JPanel implements ActionListener {
         currentMode.setOpaque(true);
         currentMode.setForeground(Color.white);
 
-        add(logOut = new TopMainFrameButtons("Log Out"), "cell 4 0");
+        add(logOut = new JTopMainFrameButtons("Log Out"), "cell 4 0");
 
         leagueMode.addActionListener(this);
         logOut.addActionListener(this);

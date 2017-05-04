@@ -1,4 +1,4 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.frames;
 
 import com.google.gson.Gson;
 import edu.oswego.cs.bowler_owner.components.JScoreTable;

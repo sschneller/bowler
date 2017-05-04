@@ -1,19 +1,20 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.dialogs;
 
 
+import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 
-public class PriceDefaultsFrame extends JDialog {
+public class PriceDefaultsDialog extends JDialog {
 
     private JLabel shoeLabel, socksLabel, gameLabel;
     private JTextField shoePrice, socksPrice, gamePrice;
     private JButton submitButton, cancelButton;
     private MainFrame rootFrame;
 
-    PriceDefaultsFrame(MainFrame root) {
+    public PriceDefaultsDialog(MainFrame root) {
 
         super(root, ModalityType.DOCUMENT_MODAL);
 

@@ -1,5 +1,6 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.containers.frames;
 
+import edu.oswego.cs.bowler_owner.containers.panels.*;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;

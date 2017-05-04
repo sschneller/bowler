@@ -1,12 +1,12 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.components;
 
 
 import javax.swing.*;
 import java.awt.*;
 
-public class TopMainFrameButtons extends JButton {
+public class JTopMainFrameButtons extends JButton {
 
-    TopMainFrameButtons(String name){
+    public JTopMainFrameButtons(String name){
         this.setText(name);
         Color topScreenColors = Color.decode("#000000");
         this.setBackground(topScreenColors);

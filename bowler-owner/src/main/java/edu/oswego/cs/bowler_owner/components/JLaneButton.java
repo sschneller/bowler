@@ -1,11 +1,11 @@
-package edu.oswego.cs.bowler_owner;
+package edu.oswego.cs.bowler_owner.components;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class LaneButton extends JButton{
+public class JLaneButton extends JButton{
 
-    LaneButton(String name){
+    public JLaneButton(String name){
         this.setText(name);
         Color laneColor = Color.decode("#0829CC");
         this.setBackground(laneColor);
