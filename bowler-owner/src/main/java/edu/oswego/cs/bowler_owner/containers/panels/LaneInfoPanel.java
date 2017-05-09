@@ -13,7 +13,7 @@ public class LaneInfoPanel extends JPanel {
     private TopMainFramePanel topPanel;
 
     public LaneInfoPanel(MainFrame root, TopMainFramePanel tPanel) {
-        setLayout(new MigLayout("debug", "[grow,fill]", "[][grow,fill][]"));
+        setLayout(new MigLayout("", "[grow,fill]", "[][grow,fill][]"));
         Color backgroundColor = Color.decode("#B3B3B3");
         setBackground(backgroundColor);
         mainFrame = root;
