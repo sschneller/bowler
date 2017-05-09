@@ -21,7 +21,14 @@ public class ScoreTable {
     }
 
     public List<BFrame> getScores(Player p) {
-        return frameList.get(playerList.indexOf(p));
+        int index = -1;
+        for(int i = 0; i < playerList.size(); i++) {
+            if(playerList.get(i).compareTo(p) == 0) {
+                index = i;
+                break;
+            }
+        }
+        return frameList.get(index);
     }
 
     public void insertPlayer(Player p) {
@@ -34,21 +41,55 @@ public class ScoreTable {
     }
 
     public void modifyPlayer(Player oldPlayer, Player newPlayer) {
-        playerList.set(playerList.indexOf(oldPlayer), newPlayer);
+        int index = -1;
+        for(int i = 0; i < playerList.size(); i++) {
+            if(playerList.get(i).compareTo(oldPlayer) == 0) {
+                index = i;
+                break;
+            }
+        }
+        playerList.set(index, newPlayer);
     }
 
-    public void insertScore(Player p, String score, int index) {
-        List<BFrame> updatedList = frameList.get(playerList.indexOf(p));
-        updatedList.set(index, updatedList.get(index).insertScore(score));
-        frameList.set(playerList.indexOf(p), updatedList);
-        tabulateScores(p);
+    public void insertScore(Player p, String score) {
+        int index = -1;
+        for(int i = 0; i < playerList.size(); i++) {
+            if(playerList.get(i).compareTo(p) == 0) {
+                index = i;
+                break;
+            }
+        }
+        List<BFrame> updatedList = frameList.get(index);
+        for(int i = 0; i < updatedList.size(); i++) {
+            if(updatedList.get(i).getType().equals("Partitioned")) {
+                if(updatedList.get(i).getRightFrame().equals("")) {
+                    updatedList.set(i, updatedList.get(i).insertScore(score));
+                    break;
+                }
+            }
+            else if(updatedList.get(i).getType().equals("Final")) {
+                if(updatedList.get(i).getLeftFrame().equals("") || updatedList.get(i).getCenterFrame().equals("") || updatedList.get(i).getRightFrame().equals("")) {
+                    updatedList.set(i, updatedList.get(i).insertScore(score));
+                    break;
+                }
+            }
+        }
+        frameList.set(index, updatedList);
+        tabulateScores(playerList.get(index));
     }
 
     public void modifyScore(Player p, String score, int index, int side) {
-        List<BFrame> updatedList = frameList.get(playerList.indexOf(p));
+        int i = -1;
+        for(int j = 0; j < playerList.size(); j++) {
+            if(playerList.get(j).compareTo(p) == 0) {
+                i = j;
+                break;
+            }
+        }
+        List<BFrame> updatedList = frameList.get(i);
         updatedList.set(index, updatedList.get(index).modifyScore(score, side));
-        frameList.set(playerList.indexOf(p), updatedList);
-        tabulateScores(p);
+        frameList.set(i, updatedList);
+        tabulateScores(playerList.get(i));
     }
 
     private void tabulateScores(Player p) {
@@ -83,10 +124,14 @@ public class ScoreTable {
                 }
                 //
                 else if(currFrame.getRightFrame().equals("X") && !finalFrame.getLeftFrame().equals("") && !finalFrame.getCenterFrame().equals("")) {
-                    if(finalFrame.getLeftFrame().equals("-") && finalFrame.getCenterFrame().equals("-")) total = prevValue + 10;
-                    else if(finalFrame.getLeftFrame().equals("-")) total = prevValue + 10 + Integer.parseInt(finalFrame.getCenterFrame());
-                    else if(finalFrame.getCenterFrame().equals("-")) total = prevValue + 10 + Integer.parseInt(finalFrame.getLeftFrame());
-                    else total = prevValue + 10 + Integer.parseInt(finalFrame.getLeftFrame()) + Integer.parseInt(finalFrame.getCenterFrame());
+                    if(finalFrame.getLeftFrame().equals("-") && finalFrame.getCenterFrame().equals("-"))
+                        total = prevValue + 10;
+                    else if(finalFrame.getLeftFrame().equals("-"))
+                        total = prevValue + 10 + Integer.parseInt(finalFrame.getCenterFrame());
+                    else if(finalFrame.getCenterFrame().equals("-"))
+                        total = prevValue + 10 + Integer.parseInt(finalFrame.getLeftFrame());
+                    else
+                        total = prevValue + 10 + Integer.parseInt(finalFrame.getLeftFrame()) + Integer.parseInt(finalFrame.getCenterFrame());
                 }
                 // SPARE CALCS
                 //
@@ -102,9 +147,12 @@ public class ScoreTable {
                 //
                 else if(!currFrame.getLeftFrame().equals("") && !currFrame.getRightFrame().equals("") && !currFrame.getRightFrame().equals("/") && !currFrame.getRightFrame().equals("X")) {
                     if(currFrame.getLeftFrame().equals("-") && currFrame.getRightFrame().equals("-")) total = prevValue;
-                    else if(currFrame.getLeftFrame().equals("-")) total = prevValue + Integer.parseInt(currFrame.getRightFrame());
-                    else if(currFrame.getRightFrame().equals("-")) total = prevValue + Integer.parseInt(currFrame.getLeftFrame());
-                    else total = prevValue + Integer.parseInt(currFrame.getLeftFrame()) + Integer.parseInt(currFrame.getRightFrame());
+                    else if(currFrame.getLeftFrame().equals("-"))
+                        total = prevValue + Integer.parseInt(currFrame.getRightFrame());
+                    else if(currFrame.getRightFrame().equals("-"))
+                        total = prevValue + Integer.parseInt(currFrame.getLeftFrame());
+                    else
+                        total = prevValue + Integer.parseInt(currFrame.getLeftFrame()) + Integer.parseInt(currFrame.getRightFrame());
                 }
                 currFrame.setBottomFrame(total + "");
             }
@@ -121,10 +169,14 @@ public class ScoreTable {
                     total = prevValue + 20;
                 }
                 else if(currFrame.getRightFrame().equals("X") && !nextFrame.getLeftFrame().equals("") && !nextFrame.getRightFrame().equals("")) {
-                    if(nextFrame.getLeftFrame().equals("-") && nextFrame.getRightFrame().equals("-")) total = prevValue + 10;
-                    else if(nextFrame.getLeftFrame().equals("-")) total = prevValue + 10 + Integer.parseInt(nextFrame.getRightFrame());
-                    else if(nextFrame.getRightFrame().equals("-")) total = prevValue + 10 + Integer.parseInt(nextFrame.getLeftFrame());
-                    else total = prevValue + 10 + Integer.parseInt(nextFrame.getLeftFrame()) + Integer.parseInt(nextFrame.getRightFrame());
+                    if(nextFrame.getLeftFrame().equals("-") && nextFrame.getRightFrame().equals("-"))
+                        total = prevValue + 10;
+                    else if(nextFrame.getLeftFrame().equals("-"))
+                        total = prevValue + 10 + Integer.parseInt(nextFrame.getRightFrame());
+                    else if(nextFrame.getRightFrame().equals("-"))
+                        total = prevValue + 10 + Integer.parseInt(nextFrame.getLeftFrame());
+                    else
+                        total = prevValue + 10 + Integer.parseInt(nextFrame.getLeftFrame()) + Integer.parseInt(nextFrame.getRightFrame());
                 }
                 // SPARE CALCS
                 else if(currFrame.getRightFrame().equals("/") && nextFrame.getRightFrame().equals("X")) {
@@ -137,9 +189,12 @@ public class ScoreTable {
                 // ELSE
                 else if(!currFrame.getLeftFrame().equals("") && !currFrame.getRightFrame().equals("") && !currFrame.getRightFrame().equals("/") && !currFrame.getRightFrame().equals("X")) {
                     if(currFrame.getLeftFrame().equals("-") && currFrame.getRightFrame().equals("-")) total = prevValue;
-                    else if(currFrame.getLeftFrame().equals("-")) total = prevValue + Integer.parseInt(currFrame.getRightFrame());
-                    else if(currFrame.getRightFrame().equals("-")) total = prevValue + Integer.parseInt(currFrame.getLeftFrame());
-                    else total = prevValue + Integer.parseInt(currFrame.getLeftFrame()) + Integer.parseInt(currFrame.getRightFrame());
+                    else if(currFrame.getLeftFrame().equals("-"))
+                        total = prevValue + Integer.parseInt(currFrame.getRightFrame());
+                    else if(currFrame.getRightFrame().equals("-"))
+                        total = prevValue + Integer.parseInt(currFrame.getLeftFrame());
+                    else
+                        total = prevValue + Integer.parseInt(currFrame.getLeftFrame()) + Integer.parseInt(currFrame.getRightFrame());
                 }
                 currFrame.setBottomFrame(total + "");
             }
@@ -157,10 +212,14 @@ public class ScoreTable {
             total = prevValue + 20;
         }
         else if(finalFrame.getLeftFrame().equals("X") && !finalFrame.getCenterFrame().equals("") && !finalFrame.getRightFrame().equals("")) {
-            if(finalFrame.getCenterFrame().equals("-") && finalFrame.getRightFrame().equals("-")) total = prevValue + 10;
-            else if(finalFrame.getCenterFrame().equals("-")) total = prevValue + 10 + Integer.parseInt(finalFrame.getCenterFrame());
-            else if(finalFrame.getRightFrame().equals("-")) total = prevValue + 10 + Integer.parseInt(finalFrame.getRightFrame());
-            else total = prevValue + 10 + Integer.parseInt(finalFrame.getRightFrame()) + Integer.parseInt(finalFrame.getCenterFrame());
+            if(finalFrame.getCenterFrame().equals("-") && finalFrame.getRightFrame().equals("-"))
+                total = prevValue + 10;
+            else if(finalFrame.getCenterFrame().equals("-"))
+                total = prevValue + 10 + Integer.parseInt(finalFrame.getCenterFrame());
+            else if(finalFrame.getRightFrame().equals("-"))
+                total = prevValue + 10 + Integer.parseInt(finalFrame.getRightFrame());
+            else
+                total = prevValue + 10 + Integer.parseInt(finalFrame.getRightFrame()) + Integer.parseInt(finalFrame.getCenterFrame());
         }
         // SPARE CALCS
         else if(finalFrame.getCenterFrame().equals("/") && finalFrame.getRightFrame().equals("X")) {
@@ -173,9 +232,12 @@ public class ScoreTable {
         // ELSE
         else if(!finalFrame.getLeftFrame().equals("") && !finalFrame.getCenterFrame().equals("") && !finalFrame.getCenterFrame().equals("/") && !finalFrame.getCenterFrame().equals("X")) {
             if(finalFrame.getLeftFrame().equals("-") && finalFrame.getCenterFrame().equals("-")) total = prevValue;
-            else if(finalFrame.getLeftFrame().equals("-")) total = prevValue + Integer.parseInt(finalFrame.getCenterFrame());
-            else if(finalFrame.getCenterFrame().equals("-")) total = prevValue + Integer.parseInt(finalFrame.getLeftFrame());
-            else total = prevValue + Integer.parseInt(finalFrame.getLeftFrame()) + Integer.parseInt(finalFrame.getCenterFrame());
+            else if(finalFrame.getLeftFrame().equals("-"))
+                total = prevValue + Integer.parseInt(finalFrame.getCenterFrame());
+            else if(finalFrame.getCenterFrame().equals("-"))
+                total = prevValue + Integer.parseInt(finalFrame.getLeftFrame());
+            else
+                total = prevValue + Integer.parseInt(finalFrame.getLeftFrame()) + Integer.parseInt(finalFrame.getCenterFrame());
         }
         finalFrame.setBottomFrame(total + "");
     }

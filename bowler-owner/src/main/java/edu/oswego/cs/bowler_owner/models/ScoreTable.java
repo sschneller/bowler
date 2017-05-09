@@ -21,7 +21,14 @@ public class ScoreTable {
     }
 
     public List<BFrame> getScores(Player p) {
-        return frameList.get(playerList.indexOf(p));
+        int index = -1;
+        for(int i = 0; i < playerList.size(); i++) {
+            if(playerList.get(i).compareTo(p) == 0) {
+                index = i;
+                break;
+            }
+        }
+        return frameList.get(index);
     }
 
     public void insertPlayer(Player p) {
@@ -34,21 +41,55 @@ public class ScoreTable {
     }
 
     public void modifyPlayer(Player oldPlayer, Player newPlayer) {
-        playerList.set(playerList.indexOf(oldPlayer), newPlayer);
+        int index = -1;
+        for(int i = 0; i < playerList.size(); i++) {
+            if(playerList.get(i).compareTo(oldPlayer) == 0) {
+                index = i;
+                break;
+            }
+        }
+        playerList.set(index, newPlayer);
     }
 
-    public void insertScore(Player p, String score, int index) {
-        List<BFrame> updatedList = frameList.get(playerList.indexOf(p));
-        updatedList.set(index, updatedList.get(index).insertScore(score));
-        frameList.set(playerList.indexOf(p), updatedList);
-        tabulateScores(p);
+    public void insertScore(Player p, String score) {
+        int index = -1;
+        for(int i = 0; i < playerList.size(); i++) {
+            if(playerList.get(i).compareTo(p) == 0) {
+                index = i;
+                break;
+            }
+        }
+        List<BFrame> updatedList = frameList.get(index);
+        for(int i = 0; i < updatedList.size(); i++) {
+            if(updatedList.get(i).getType().equals("Partitioned")) {
+                if(updatedList.get(i).getRightFrame().equals("")) {
+                    updatedList.set(i, updatedList.get(i).insertScore(score));
+                    break;
+                }
+            }
+            else if(updatedList.get(i).getType().equals("Final")) {
+                if(updatedList.get(i).getLeftFrame().equals("") || updatedList.get(i).getCenterFrame().equals("") || updatedList.get(i).getRightFrame().equals("")) {
+                    updatedList.set(i, updatedList.get(i).insertScore(score));
+                    break;
+                }
+            }
+        }
+        frameList.set(index, updatedList);
+        tabulateScores(playerList.get(index));
     }
 
     public void modifyScore(Player p, String score, int index, int side) {
-        List<BFrame> updatedList = frameList.get(playerList.indexOf(p));
+        int i = -1;
+        for(int j = 0; j < playerList.size(); j++) {
+            if(playerList.get(j).compareTo(p) == 0) {
+                i = j;
+                break;
+            }
+        }
+        List<BFrame> updatedList = frameList.get(i);
         updatedList.set(index, updatedList.get(index).modifyScore(score, side));
-        frameList.set(playerList.indexOf(p), updatedList);
-        tabulateScores(p);
+        frameList.set(i, updatedList);
+        tabulateScores(playerList.get(i));
     }
 
     private void tabulateScores(Player p) {

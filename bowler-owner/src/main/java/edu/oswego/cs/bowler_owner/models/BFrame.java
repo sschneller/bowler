@@ -110,16 +110,14 @@ public class BFrame {
             else if(!getLeftFrame().equals("") && getCenterFrame().equals("")) {
                 if(score.equals("10")) setCenterFrame("X");
                 else if(score.equals("0")) setCenterFrame("-");
-                else if(!getLeftFrame().equals("X") && !getLeftFrame().equals("-") && (Integer.parseInt(getLeftFrame()) + Integer.parseInt(score)) == 10)
-                    setCenterFrame("/");
+                else if(!getLeftFrame().equals("X") && !getLeftFrame().equals("-") && (Integer.parseInt(getLeftFrame()) + Integer.parseInt(score)) == 10) setCenterFrame("/");
                 else setCenterFrame(score);
             }
             else if(!getLeftFrame().equals("") && !getCenterFrame().equals("") && getRightFrame().equals("")) {
                 if(getLeftFrame().equals("X") || getCenterFrame().equals("/")) {
                     if(score.equals("10")) setRightFrame("X");
                     else if(score.equals("0")) setRightFrame("-");
-                    else if(!getCenterFrame().equals("X") && !getCenterFrame().equals("-") && !getCenterFrame().equals("/") && (Integer.parseInt(getCenterFrame()) + Integer.parseInt(score)) == 10)
-                        setRightFrame("/");
+                    else if(!getCenterFrame().equals("X") && !getCenterFrame().equals("-") && !getCenterFrame().equals("/") && (Integer.parseInt(getCenterFrame()) + Integer.parseInt(score)) == 10) setRightFrame("/");
                     else setRightFrame(score);
                 }
             }
@@ -174,24 +172,5 @@ public class BFrame {
             return this;
         }
         return null;
-    }
-
-    @Override
-    public String toString() {
-        String output = "";
-        if(type.equals("Partitioned")) {
-            output = "PartitionedFrame:";
-            output += "\n\tLeft: " + getLeftFrame() + "\tRight: " + getRightFrame() + "\tBottom: " + getBottomFrame();
-        }
-        else if(type.equals("Final")) {
-            output = "FinalFrame:";
-            output += "\n\tLeft: " + getLeftFrame() + "\tCenter: " + getCenterFrame() + "\tRight: " + getRightFrame() + "\tBottom: " + getBottomFrame();
-        }
-        else if(type.equals("Full")) {
-            output = "FullFrame:";
-            output += "\n\tValue: " + getValue();
-        }
-
-        return output;
     }
 }

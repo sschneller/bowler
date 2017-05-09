@@ -1,6 +1,6 @@
 package edu.oswego.cs.bowler_owner.models;
 
-public class Player {
+public class Player implements Comparable {
     private int playerid;
     private String player_name;
     private int on_team;
@@ -90,5 +90,18 @@ public class Player {
 
     public void setPoints_lost(int points_lost) {
         this.points_lost = points_lost;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(this.getPlayerid() > 0 && ((Player)o).getPlayerid() > 0) {
+            if(((Player)o).getPlayerid() < this.getPlayerid()) return -1;
+            else if(((Player)o).getPlayerid() == this.getPlayerid()) return 0;
+            else if(((Player)o).getPlayerid() > this.getPlayerid()) return 1;
+        }
+        else if(!this.getPlayer_name().equals("") && !((Player)o).getPlayer_name().equals("")){
+            return this.getPlayer_name().compareTo(((Player)o).getPlayer_name());
+        }
+        return 0;
     }
 }
