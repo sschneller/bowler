@@ -1,13 +1,17 @@
 package edu.oswego.cs.bowler_owner.containers.panels;
 
 import edu.oswego.cs.bowler_owner.components.JNonLaneButtonInPanel;
+import edu.oswego.cs.bowler_owner.containers.dialogs.CheckOutDialog;
+import edu.oswego.cs.bowler_owner.containers.dialogs.ControlDialog;
 import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class LaneInfoButtonsPanel extends JPanel {
+public class LaneInfoButtonsPanel extends JPanel implements ActionListener {
 
     private MainFrame mainFrame;
     private TopMainFramePanel topPanel;
@@ -42,8 +46,16 @@ public class LaneInfoButtonsPanel extends JPanel {
         modifyScore = new JNonLaneButtonInPanel("Modify Score");
         add(modifyScore);
         checkOut = new JNonLaneButtonInPanel("Check Out");
+        checkOut.addActionListener(this);
         add(checkOut);
 
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(((JButton)e.getSource()).getText().equals("Check Out")) {
+            final CheckOutDialog checkOutDialog = new CheckOutDialog(mainFrame);
+            SwingUtilities.invokeLater(() -> checkOutDialog.setVisible(true));
+        }
+    }
 }

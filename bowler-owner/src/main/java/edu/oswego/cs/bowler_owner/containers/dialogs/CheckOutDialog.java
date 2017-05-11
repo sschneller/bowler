@@ -1,52 +1,38 @@
 package edu.oswego.cs.bowler_owner.containers.dialogs;
 
-
 import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
 import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Arc2D;
 
-public class PriceDefaultsDialog extends JDialog {
+public class CheckOutDialog extends JDialog {
 
     private JLabel shoeLabel, socksLabel, gameLabel;
     private JTextField shoePrice, socksPrice, gamePrice;
     private JButton submitButton, cancelButton;
     private MainFrame rootFrame;
 
-    public PriceDefaultsDialog(MainFrame root) {
-
-        super(root, ModalityType.DOCUMENT_MODAL);
+    public CheckOutDialog(MainFrame root){
+        super(root, Dialog.ModalityType.DOCUMENT_MODAL);
 
         rootFrame = root;
         rootFrame.setDialogShown(true);
 
-        setTitle("Prices");
+        setTitle("Check Out");
         setSize(260, 100);
         setLocationRelativeTo(null);
         setMinimumSize(this.getSize());
         setLayout(new MigLayout("", "[][grow,fill]", "[][][][]"));
 
-        add(shoeLabel = new JLabel("Shoe Price:"));
+        add(shoeLabel = new JLabel("Shoes Purchased:"));
         add(shoePrice = new JTextField(), "growx, wrap");
-        add(socksLabel = new JLabel("Socks Price:"));
+        add(socksLabel = new JLabel("Socks Purchased:"));
         add(socksPrice = new JTextField(), "growx, wrap");
-        add(gameLabel = new JLabel("Game Price:"));
+        add(gameLabel = new JLabel("Games Bowled:"));
         add(gamePrice = new JTextField(), "growx, wrap");
-
-        if(DB.getPrice("shoePrice") != -1.0) {
-            String shoePriceString = Double.toString(DB.getPrice("shoePrice"));
-            shoePrice.setText(shoePriceString);
-        }
-        if(DB.getPrice("sockPrice") != -1.0) {
-            String sockPriceString = Double.toString(DB.getPrice("sockPrice"));
-            socksPrice.setText(sockPriceString);
-        }
-        if(DB.getPrice("gamePrice") != -1.0) {
-            String gamePriceString = Double.toString(DB.getPrice("gamePrice"));
-            gamePrice.setText(gamePriceString);
-        }
-
 
         JPanel dialogButtons = new JPanel(new MigLayout("", "[grow,fill][][][grow,fill]", "[grow,fill]"));
         dialogButtons.add(submitButton = new JButton("Submit"), "cell 1 0");
@@ -54,19 +40,20 @@ public class PriceDefaultsDialog extends JDialog {
 
         submitButton.addActionListener(e -> {
             String errorMessage = "";
-            double shoeFinalPrice, sockFinalPrice, gameFinalPrice;
+            double shoeFinalPrice = 0.0;
+            double sockFinalPrice = 0.0;
+            double gameFinalPrice = 0.0;
 
             if(shoePrice.getText().equals("")) {
-                errorMessage += "Need to Enter a Shoe!" + System.lineSeparator();
+                errorMessage += "Need to Enter Number of Shoes!" + System.lineSeparator();
             }
             else {
                 try {
-                    shoeFinalPrice = Double.parseDouble(shoePrice.getText());
-                    if(DB.getPrice("shoePrice") == -1) {
-                        DB.insertPricing("shoePrice", shoeFinalPrice);
+                    if(DB.getPrice("shoePrice") != -1) {
+                        shoeFinalPrice = Double.parseDouble(shoePrice.getText()) * DB.getPrice("shoePrice");
                     }
                     else {
-                        DB.updatePrice("shoePrice", shoeFinalPrice);
+                        errorMessage += "Need to Enter a Shoe Price in PriceDefaults!" + System.lineSeparator();
                     }
                 }
                 catch(NumberFormatException nfe) {
@@ -74,16 +61,15 @@ public class PriceDefaultsDialog extends JDialog {
                 }
             }
             if(socksPrice.getText().equals("")) {
-                errorMessage += "Need to Enter a Sock!" + System.lineSeparator();
+                errorMessage += "Need to Enter Number of Shoes!" + System.lineSeparator();
             }
             else {
                 try {
-                    sockFinalPrice = Double.parseDouble(socksPrice.getText());
-                    if(DB.getPrice("sockPrice") == -1) {
-                        DB.insertPricing("sockPrice", sockFinalPrice);
+                    if(DB.getPrice("sockPrice") != -1) {
+                        sockFinalPrice = Double.parseDouble(socksPrice.getText()) * DB.getPrice("sockPrice");
                     }
                     else {
-                        DB.updatePrice("sockPrice", sockFinalPrice);
+                        errorMessage += "Need to Enter a Sock Price in PriceDefaults!" + System.lineSeparator();
                     }
                 }
                 catch(NumberFormatException nfe) {
@@ -91,16 +77,15 @@ public class PriceDefaultsDialog extends JDialog {
                 }
             }
             if(gamePrice.getText().equals("")) {
-                errorMessage += "Need to Enter a Game!" + System.lineSeparator();
+                errorMessage += "Need to Enter Number of Games!" + System.lineSeparator();
             }
             else {
                 try {
-                    gameFinalPrice = Double.parseDouble(gamePrice.getText());
-                    if(DB.getPrice("gamePrice") == -1) {
-                        DB.insertPricing("gamePrice", gameFinalPrice);
+                    if(DB.getPrice("gamePrice") != -1) {
+                        gameFinalPrice = Double.parseDouble(gamePrice.getText()) * DB.getPrice("gamePrice");
                     }
                     else {
-                        DB.updatePrice("gamePrice", gameFinalPrice);
+                        errorMessage += "Need to Enter a Game Price in PriceDefaults!" + System.lineSeparator();
                     }
                 }
                 catch(NumberFormatException nfe) {
@@ -108,6 +93,14 @@ public class PriceDefaultsDialog extends JDialog {
                 }
             }
             if(errorMessage.equals("")) {
+                double total = shoeFinalPrice + sockFinalPrice + gameFinalPrice;
+                if(DB.getPrice("Total") == -1){
+                    DB.insertPricing("Total", total);
+                }
+                else{
+                    total += DB.getPrice("Total");
+                    DB.updatePrice("Total", total);
+                }
                 this.setVisible(false);
                 rootFrame.setDialogShown(false);
                 rootFrame.repaint();
@@ -129,4 +122,6 @@ public class PriceDefaultsDialog extends JDialog {
 
         getRootPane().setDefaultButton(submitButton);
     }
+
+
 }
