@@ -22,19 +22,22 @@ public class LeagueLanePanel extends JPanel implements ActionListener {
     private DefaultListModel model = new DefaultListModel();
     private JNonLaneButtonInPanel lanesControl, pinsettersControl, absentTeams;
     private MainFrame mainFrame;
+    private TopMainFramePanel topPanel;
 
-    public LeagueLanePanel(MainFrame root) {
+    public LeagueLanePanel(MainFrame root, TopMainFramePanel tp) {
 
         setLayout(new MigLayout("","[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill]",
                 "[grow, fill][grow,fill][grow,fill][grow,fill]"));
         Color backgroundColor = Color.decode("#B3B3B3");
         setBackground(backgroundColor);
         mainFrame = root;
+        topPanel = tp;
 
         addConnectionsToListModel();
         for(int i = 0; i < model.size(); i++) {
             JLaneButton lane = new JLaneButton(model.get(i).toString(), ((Connection)model.get(i)).getIp());
             lane.addActionListener(e -> {
+                topPanel.setLeagueModeButtonFalse();
                 CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
                 cardLayout.show(mainFrame.getCardsLayout(), "LaneInfoPanel");
                 Gson gson = new Gson();

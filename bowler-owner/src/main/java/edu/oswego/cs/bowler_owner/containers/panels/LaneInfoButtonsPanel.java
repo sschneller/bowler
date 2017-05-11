@@ -28,6 +28,7 @@ public class LaneInfoButtonsPanel extends JPanel implements ActionListener {
         setBackground(backgroundColor);
         back = new JNonLaneButtonInPanel("Back");
         back.addActionListener(e -> {
+            topPanel.setLeagueModeButtonTrue();
             CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
             if(topPanel.getLeagueMode().equals("Regular Mode")) {
                 cardLayout.show(mainFrame.getCardsLayout(), "NonLeaguePanel");

@@ -42,6 +42,14 @@ public class TopMainFramePanel extends JPanel implements ActionListener {
         return currentMode.getText();
     }
 
+    public void setLeagueModeButtonFalse(){
+        leagueMode.setEnabled(false);
+    }
+
+    public void setLeagueModeButtonTrue(){
+        leagueMode.setEnabled(true);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if(((JButton)e.getSource()).getText().equals("Switch to League Mode")) {

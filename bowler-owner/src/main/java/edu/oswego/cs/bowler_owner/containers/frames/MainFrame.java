@@ -30,8 +30,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
         cards = new JPanel(new CardLayout());
         userName = user;
-        nonPanel = new NonLeagueLanePanel(this);
-        leaguePanel = new LeagueLanePanel(this);
+        topMainFrame = new TopMainFramePanel(this);
+        sideMainFrame = new SideMainFramePanel(this, nonPanel, leaguePanel, userName);
+        nonPanel = new NonLeagueLanePanel(this, topMainFrame);
+        leaguePanel = new LeagueLanePanel(this, topMainFrame);
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(screenSize.width, screenSize.height);
@@ -41,8 +43,8 @@ public class MainFrame extends JFrame implements ActionListener {
         Color backgroundColor = Color.decode("#666666");
         getContentPane().setBackground(backgroundColor);
 
-        add(topMainFrame = new TopMainFramePanel(this), "span, growx");
-        add(sideMainFrame = new SideMainFramePanel(this, nonPanel, leaguePanel, userName), "cell 1 1, growy");
+        add(topMainFrame, "span, growx");
+        add(sideMainFrame, "cell 1 1, growy");
 
         infoPanel = new LaneInfoPanel(this, topMainFrame);
 
