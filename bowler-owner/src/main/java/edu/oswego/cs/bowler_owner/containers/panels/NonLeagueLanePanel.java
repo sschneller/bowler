@@ -43,7 +43,7 @@ public class NonLeagueLanePanel extends JPanel implements ActionListener {
                         mainFrame.getLaneInfoPanel().remove(1);
                     }
                     mainFrame.getLaneInfoPanel().add(
-                            new JScoreTable(gson.fromJson(mainFrame.sendGet(lane.ip, "/scoretable"), ScoreTable.class)), "span, cell 0 1");
+                            new JScoreTable(gson.fromJson(mainFrame.sendGet(lane.ip, "/scoretable"), ScoreTable.class)), "span");
                 }
                 catch(Exception e1) {
                     e1.printStackTrace();
@@ -80,9 +80,20 @@ public class NonLeagueLanePanel extends JPanel implements ActionListener {
             lane.addActionListener(e -> {
                 CardLayout cardLayout = (CardLayout)mainFrame.getCardsLayout().getLayout();
                 cardLayout.show(mainFrame.getCardsLayout(), "LaneInfoPanel");
+                Gson gson = new Gson();
+                try {
+                    if(mainFrame.getLaneInfoPanel().getComponentCount() > 1) {
+                        mainFrame.getLaneInfoPanel().remove(1);
+                    }
+                    mainFrame.getLaneInfoPanel().add(
+                            new JScoreTable(gson.fromJson(mainFrame.sendGet(lane.ip, "/scoretable"), ScoreTable.class)), "span, cell 0 1");
+                }
+                catch(Exception e1) {
+                    e1.printStackTrace();
+                }
             });
             lanes.add(lane);
-            add(lane, "wrap");
+            add(lane, "pad 15 15 -15 -15");
         }
     }
 

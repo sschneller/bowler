@@ -5,12 +5,14 @@ import edu.oswego.cs.bowler_owner.containers.dialogs.ControlDialog;
 import edu.oswego.cs.bowler_owner.containers.dialogs.PriceDefaultsDialog;
 import edu.oswego.cs.bowler_owner.containers.dialogs.SafeModeDialog;
 import edu.oswego.cs.bowler_owner.containers.frames.MainFrame;
+import edu.oswego.cs.bowler_owner.mongo.DB;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.NumberFormat;
 
 public class SideMainFramePanel extends JPanel implements ActionListener {
 
@@ -57,7 +59,12 @@ public class SideMainFramePanel extends JPanel implements ActionListener {
             SwingUtilities.invokeLater(() -> controlDialog.setVisible(true));
         }
         else if(((JButton)e.getSource()).getText().equals("Cash Out")) {
-
+            if(DB.getPrice("Total") != -1){
+                NumberFormat formatter = NumberFormat.getCurrencyInstance();
+                JOptionPane.showMessageDialog(null, formatter.format(DB.getPrice("Total")) + " in register");
+            }else{
+                JOptionPane.showMessageDialog(null, "No money in register");
+            }
         }
     }
 }

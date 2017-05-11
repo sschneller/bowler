@@ -31,6 +31,7 @@ public class ControlFrame extends JFrame {
             temp.pack();
             temp.setSize(300, temp.getHeight());
             temp.setVisible(true);
+            temp.getRootPane().setDefaultButton(jButton);
         });
         add(addPlayerButton, "growx");
         changePlayerNameButton.addActionListener(e -> {
@@ -56,6 +57,7 @@ public class ControlFrame extends JFrame {
             temp.pack();
             temp.setSize(300, temp.getHeight());
             temp.setVisible(true);
+            temp.getRootPane().setDefaultButton(jButton);
         });
         add(changePlayerNameButton, "growx");
         insertScoreButton.addActionListener(e -> {
@@ -79,6 +81,7 @@ public class ControlFrame extends JFrame {
             temp.pack();
             temp.setSize(300, temp.getHeight());
             temp.setVisible(true);
+            temp.getRootPane().setDefaultButton(jButton);
         });
         add(insertScoreButton, "growx");
         changeScoreButton.addActionListener(e -> {
@@ -108,6 +111,7 @@ public class ControlFrame extends JFrame {
             temp.pack();
             temp.setSize(300, temp.getHeight());
             temp.setVisible(true);
+            temp.getRootPane().setDefaultButton(jButton);
         });
         add(changeScoreButton, "growx");
         pack();
