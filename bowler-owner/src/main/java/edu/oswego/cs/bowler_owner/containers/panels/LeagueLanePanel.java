@@ -25,7 +25,8 @@ public class LeagueLanePanel extends JPanel implements ActionListener {
 
     public LeagueLanePanel(MainFrame root) {
 
-        setLayout(new MigLayout());
+        setLayout(new MigLayout("","[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill]",
+                "[grow, fill][grow,fill][grow,fill][grow,fill]"));
         Color backgroundColor = Color.decode("#B3B3B3");
         setBackground(backgroundColor);
         mainFrame = root;
@@ -48,12 +49,12 @@ public class LeagueLanePanel extends JPanel implements ActionListener {
                 }
             });
             lanes.add(lane);
-            add(lane, "wrap");
+            add(lane, "pad 15 15 -15 -15");
         }
 
-        add(lanesControl = new JNonLaneButtonInPanel("Turn Lanes On"));
-        add(pinsettersControl = new JNonLaneButtonInPanel("Pinsetters On"));
-        add(absentTeams = new JNonLaneButtonInPanel("Absent Teams"));
+        add(lanesControl = new JNonLaneButtonInPanel("Turn Lanes On"), "pad 15 15 -15 -15, cell 2 4");
+        add(pinsettersControl = new JNonLaneButtonInPanel("Pinsetters On"), "pad 15 15 -15 -15, cell 3 4");
+        add(absentTeams = new JNonLaneButtonInPanel("Absent Teams"), "pad 15 15 -15 -15, cell 4 4");
     }
 
     /**

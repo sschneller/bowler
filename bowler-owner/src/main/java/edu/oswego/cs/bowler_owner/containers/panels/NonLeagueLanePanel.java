@@ -23,8 +23,10 @@ public class NonLeagueLanePanel extends JPanel implements ActionListener {
     private DefaultListModel model = new DefaultListModel();
     private MainFrame mainFrame;
 
+
     public NonLeagueLanePanel(MainFrame root) {
-        setLayout(new MigLayout());
+        setLayout(new MigLayout("","[grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill][grow,fill]",
+                "[grow, fill][grow,fill][grow,fill][grow,fill]"));
         Color backgroundColor = Color.decode("#B3B3B3");
         setBackground(backgroundColor);
         mainFrame = root;
@@ -40,18 +42,19 @@ public class NonLeagueLanePanel extends JPanel implements ActionListener {
                     if(mainFrame.getLaneInfoPanel().getComponentCount() > 1) {
                         mainFrame.getLaneInfoPanel().remove(1);
                     }
-                    mainFrame.getLaneInfoPanel().add(new JScoreTable(gson.fromJson(mainFrame.sendGet(lane.ip, "/scoretable"), ScoreTable.class)), "span, wrap");
+                    mainFrame.getLaneInfoPanel().add(
+                            new JScoreTable(gson.fromJson(mainFrame.sendGet(lane.ip, "/scoretable"), ScoreTable.class)), "span, cell 0 1");
                 }
                 catch(Exception e1) {
                     e1.printStackTrace();
                 }
             });
             lanes.add(lane);
-            add(lane, "wrap");
+            add(lane, "pad 15 15 -15 -15");
         }
 
-        add(lanesControl = new JNonLaneButtonInPanel("Turn Lanes On"), "cell 0 4");
-        add(pinsettersControl = new JNonLaneButtonInPanel("Pinsetters On"), "cell 2 4");
+        add(lanesControl = new JNonLaneButtonInPanel("Turn Lanes On"), "pad 15 15 -15 -15, cell 2 3");
+        add(pinsettersControl = new JNonLaneButtonInPanel("Pinsetters On"), "pad 15 15 -15 -15, cell 4 3");
 
     }
 

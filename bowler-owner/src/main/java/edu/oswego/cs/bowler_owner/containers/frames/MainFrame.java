@@ -33,7 +33,6 @@ public class MainFrame extends JFrame implements ActionListener {
         nonPanel = new NonLeagueLanePanel(this);
         leaguePanel = new LeagueLanePanel(this);
 
-        //FIX AT LATER DATE TO TAKE INTO ACCOUNT TOOLBAR
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(screenSize.width, screenSize.height);
         this.setResizable(false);
