@@ -11,6 +11,8 @@ public class Player implements Comparable {
     private int high_series;
     private int points_won;
     private int points_lost;
+    private int handicap;
+    private int handicap_series;
 
     public int getPlayerid() {
         return playerid;
@@ -90,6 +92,22 @@ public class Player implements Comparable {
 
     public void setPoints_lost(int points_lost) {
         this.points_lost = points_lost;
+    }
+
+    public int getHandicap() {
+        return handicap;
+    }
+
+    public void setHandicap(int handicap) {
+        this.handicap = handicap;
+    }
+
+    public int getHandicap_series() {
+        return handicap_series;
+    }
+
+    public void setHandicap_series(int handicap_series) {
+        this.handicap_series = handicap_series;
     }
 
     @Override

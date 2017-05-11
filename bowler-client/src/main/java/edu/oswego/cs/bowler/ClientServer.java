@@ -23,6 +23,14 @@ public class ClientServer {
             return 200;
         });
 
+        get("/league/create_table/:tabledata", (req, res) -> {
+            res.type("text");
+            Gson gson = new Gson();
+            jScoreTable.scoreTable = gson.fromJson(req.params(":tabledata"), ScoreTable.class);
+            jScoreTable.repaint();
+            return 200;
+        });
+
         get("/add/player/:name", (req, res) -> {
             res.type("text");
             Player tempP = new Player();

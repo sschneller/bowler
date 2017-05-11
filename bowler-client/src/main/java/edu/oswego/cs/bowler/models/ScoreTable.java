@@ -36,7 +36,8 @@ public class ScoreTable {
         List<BFrame> emptyFrames = new ArrayList<>();
         for(int i = 0; i < 9; i++) emptyFrames.add(new BFrame("", "", "", "Partitioned"));
         emptyFrames.add(new BFrame("", "", "", "", "Final"));
-        for(int i = 0; i < 3; i++) emptyFrames.add(new BFrame("", "Full"));
+        emptyFrames.add(new BFrame(p.getHandicap() + "", "Full"));
+        for(int i = 0; i < 2; i++) emptyFrames.add(new BFrame("", "Full"));
         frameList.add(emptyFrames);
     }
 
@@ -240,5 +241,16 @@ public class ScoreTable {
                 total = prevValue + Integer.parseInt(finalFrame.getLeftFrame()) + Integer.parseInt(finalFrame.getCenterFrame());
         }
         finalFrame.setBottomFrame(total + "");
+
+        if(isLeagueMode && (!finalFrame.getRightFrame().equals("") || (!finalFrame.getCenterFrame().equals("") && (!finalFrame.getCenterFrame().equals("/") || !finalFrame.getCenterFrame().equals("X") || !finalFrame.getCenterFrame().equals("-"))))) {
+            int hdcp_game = p.getHandicap() + Integer.parseInt(finalFrame.getBottomFrame());
+            bFrameList.get(11).setValue(hdcp_game + "");
+            p.setHandicap_series(p.getHandicap_series() + hdcp_game);
+        }
+        else if(!isLeagueMode) {
+            bFrameList.get(10).setValue("0");
+            bFrameList.get(11).setValue("0");
+            bFrameList.get(12).setValue("0");
+        }
     }
 }
