@@ -3,6 +3,7 @@ package edu.oswego.cs.bowler;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GUI extends JFrame {
 
@@ -10,7 +11,10 @@ public class GUI extends JFrame {
 
     public GUI() {
         setLayout(new MigLayout("", "[grow,fill]", "[grow,fill]"));
-        setSize(500, 500);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(screenSize.width, screenSize.height);
+        this.setResizable(false);
         cf.setVisible(true);
+        setUndecorated(true);
     }
 }
