@@ -31,7 +31,7 @@ public class LaneControlFrame extends JFrame {
         ipLabel = new JLabel(ip);
         add(ipLabel, "wrap");
 
-        paramField = new JTextField();
+        /*paramField = new JTextField();
         add(paramField, "span, growx");
 
         getButton = new JButton("GET EXAMPLE");
@@ -45,7 +45,7 @@ public class LaneControlFrame extends JFrame {
         });
         add(getButton);
         postButton = new JButton("POST EXAMPLE");
-        add(postButton, "wrap");
+        add(postButton, "wrap");*/
 
         pack();
     }
